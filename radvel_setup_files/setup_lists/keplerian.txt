@@ -12,7 +12,6 @@
 34957
 37124
 40647
-47186
 55696
 65430
 68988
@@ -45,4 +44,4 @@ gl570b
 gl876
 hip42220
 hip52942a
-hip112460  # no planets, just a young, active star. RVsearch looks OK
+hip112460
