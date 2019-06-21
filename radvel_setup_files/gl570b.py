@@ -43,12 +43,12 @@ time_base = np.median(data['time'])
 
 def initialize_params():
     params = radvel.Parameters(1,basis='per tc e w k')
-    params['per1'] = radvel.Parameter(value=323.287)
-    params['tc1'] = radvel.Parameter(value=2450305.8)
-    params['k1'] = radvel.Parameter(value=25782.5)
-    params['e1'] = radvel.Parameter(value=0.824)
-    params['w1'] = radvel.Parameter(value=2.154)
-    params['dvdt'] = radvel.Parameter(value=4.04, vary=vary_dvdt)
+    params['per1'] = radvel.Parameter(value=323.33)
+    params['tc1'] = radvel.Parameter(value=2450305.3)
+    params['k1'] = radvel.Parameter(value=27019.0)
+    params['e1'] = radvel.Parameter(value=0.832)
+    params['w1'] = radvel.Parameter(value=2.2)
+    params['dvdt'] = radvel.Parameter(value=4.07, vary=vary_dvdt)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
     # Convert input orbital parameters into the fitting basis
@@ -59,9 +59,9 @@ def initialize_params():
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
 params['gamma_j'] = radvel.Parameter(value=-3963.8, vary=False, linear=True)
-params['jit_j'] = radvel.Parameter(value=1644.2, vary=True)
+params['jit_j'] = radvel.Parameter(value=1639.0, vary=True)
 params['gamma_lick'] = radvel.Parameter(value=15698.8, vary=False, linear=True)
-params['jit_lick'] = radvel.Parameter(value=968.0, vary=True)
+params['jit_lick'] = radvel.Parameter(value=959.0, vary=True)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
