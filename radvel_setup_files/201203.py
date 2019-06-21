@@ -15,29 +15,29 @@ vary_dvdt = False # include a trend
 """
 """
 
-starname = 'HD 190406'
+starname = 'HD 201203'
 nplanets = 1
-instnames = ['k', 'j', 'apf']
+instnames = ['k', 'j']
 ntels = len(instnames)
 fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # stellar mass & error
-stellar = dict(mstar=1.07, mstar_err=.05)
+stellar = dict(mstar=1.4, mstar_err=.08)
 
 # load in data
-data = cpsutils.io.loadcps('190406', hires_rk=True, hires_rj=True, apf=True, ctslim=3000, binsize=2.0)
-data['tel'] = data['tel'].str.decode('utf-8')
+data = cpsutils.io.loadcps('201203', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
+
 data['time'] = data['jd']
 time_base = np.median(data['time'])
 
 def initialize_params():
     params = radvel.Parameters(1,basis='per tc e w k')
-    params['per1'] = radvel.Parameter(value=44495.8)
-    params['tc1'] = radvel.Parameter(value=2441100.06)
-    params['k1'] = radvel.Parameter(value=578.2)
-    params['e1'] = radvel.Parameter(value=0.63)
-    params['w1'] = radvel.Parameter(value=-1.85)
+    params['per1'] = radvel.Parameter(value=10006.7)
+    params['tc1'] = radvel.Parameter(value=245769.3)
+    params['k1'] = radvel.Parameter(value=806)
+    params['e1'] = radvel.Parameter(value=0.53)
+    params['w1'] = radvel.Parameter(value=-2.5)
     params['dvdt'] = radvel.Parameter(value=0, vary=vary_dvdt)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
@@ -49,15 +49,12 @@ def initialize_params():
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
 params['gamma_j'] = radvel.Parameter(value=0.0, vary=False, linear=True)
-params['jit_j'] = radvel.Parameter(value=7.8, vary=True)
+params['jit_j'] = radvel.Parameter(value=5.0, vary=True)
 params['gamma_k'] = radvel.Parameter(value=0.0, vary=False, linear=True)
-params['jit_k'] = radvel.Parameter(value=8.4, vary=True)
-params['gamma_apf'] = radvel.Parameter(value=0.0, vary=False, linear=True)
-params['jit_apf'] = radvel.Parameter(value=8.2, vary=True)
+params['jit_k'] = radvel.Parameter(value=5.0, vary=True)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
     radvel.prior.HardBounds('jit_k', 0.1, 50.0),
     radvel.prior.HardBounds('jit_j', 0.1, 50.0),
-    radvel.prior.HardBounds('jit_apf', 0.1, 50.0),
 ]

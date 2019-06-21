@@ -28,14 +28,14 @@
 156279
 167215
 167665
-178911b
-180684
+178911b  # RVsearch looks fine
+180684  # trend+curv
 183263
 187123
 190406
-195019
+195019  # RVsearch does fine, no setup needed
 200565
-201203
+201203  # no Keplerian needed
 211681
 215578
 217107

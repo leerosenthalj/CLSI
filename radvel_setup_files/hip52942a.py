@@ -22,7 +22,7 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # stellar mass & error
-stellar = dict(mstar=1.16, mstar_err=.12)
+stellar = dict(mstar=1.05, mstar_err=.06)
 
 # load in data
 '''
@@ -33,7 +33,7 @@ data_mcd = pd.read_csv('~/Dropbox/120066_radvel/HD120066_McD.ALL',
 data_mcd['tel']='m'
 data_mcd['time'] -= 40000.
 '''
-data = utils.read_from_csv('HIP52942A.csv')
+data = utils.read_from_csv('setup_data/HIP52942A.csv')
 data['time'] = data['bjd']
 time_base = np.median(data['time'])
 
