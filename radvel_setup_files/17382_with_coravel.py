@@ -44,7 +44,7 @@ def initialize_params():
     params['tc1'] = radvel.Parameter(value=2453544.9)
     params['k1'] = radvel.Parameter(value=2819.0)
     params['e1'] = radvel.Parameter(value=0.65)
-    params['w1'] = radvel.Parameter(value=1.989)
+    params['w1'] = radvel.Parameter(value=0.75)
     params['dvdt'] = radvel.Parameter(value=0, vary=vary_dvdt)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
@@ -65,6 +65,6 @@ params['jit_CORAVEL'] = radvel.Parameter(value=0.01, vary=False)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
-    radvel.prior.HardBounds('jit_j', 0.0, 30.0),
-    radvel.prior.HardBounds('jit_CORAVEL', 0.0, 30.0)
+    radvel.prior.HardBounds('jit_j', 0.0, 10.0),
+    radvel.prior.HardBounds('jit_CORAVEL', 0.0, 10.0),
 ]
