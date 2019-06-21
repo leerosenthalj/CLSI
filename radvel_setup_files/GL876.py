@@ -42,7 +42,7 @@ anybasis_params['k3'] = radvel.Parameter(value=6.560000)
 time_base = 2453012.188702
 anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
 anybasis_params['curv'] = radvel.Parameter(value=0.0)
-data = pd.read_csv('gl876_all_data.csv',
+data = pd.read_csv('setup_data/gl876_all_data.csv',
                    dtype={'time': np.float64, 'mnvel': np.float64, 'err': np.float64, 'tel': str})
 bin_t, bin_vel, bin_err, bin_tel = radvel.utils.bintels(data['time'].values, data['mnvel'].values, data['errvel'].values, data['tel'].values, binsize=0.1)
 data = pd.DataFrame([], columns=['time', 'mnvel', 'errvel', 'tel'])
