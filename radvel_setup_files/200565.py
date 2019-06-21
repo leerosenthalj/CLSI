@@ -15,7 +15,7 @@ vary_dvdt = False # include a trend
 """
 """
 
-starname = 'HD 201203'
+starname = 'HD 200565'
 nplanets = 1
 instnames = ['k', 'j']
 ntels = len(instnames)
@@ -23,21 +23,21 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # stellar mass & error
-stellar = dict(mstar=1.4, mstar_err=.08)
+stellar = dict(mstar=1.01, mstar_err=.98)
 
 # load in data
-data = cpsutils.io.loadcps('201203', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
-
+data = cpsutils.io.loadcps('200565', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=2.0)
+data['tel'] = data['tel'].str.decode('utf-8')
 data['time'] = data['jd']
 time_base = np.median(data['time'])
 
 def initialize_params():
     params = radvel.Parameters(1,basis='per tc e w k')
-    params['per1'] = radvel.Parameter(value=10006.7)
-    params['tc1'] = radvel.Parameter(value=245769.3)
-    params['k1'] = radvel.Parameter(value=806)
-    params['e1'] = radvel.Parameter(value=0.53)
-    params['w1'] = radvel.Parameter(value=-2.5)
+    params['per1'] = radvel.Parameter(value=6780.9)
+    params['tc1'] = radvel.Parameter(value=2451986.6)
+    params['k1'] = radvel.Parameter(value=2657.5)
+    params['e1'] = radvel.Parameter(value=0.73)
+    params['w1'] = radvel.Parameter(value=-1.7)
     params['dvdt'] = radvel.Parameter(value=0, vary=vary_dvdt)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
