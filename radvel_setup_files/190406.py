@@ -3,13 +3,10 @@ import pdb
 import pandas as pd
 import numpy as np
 import radvel
-from cpsutils import io
+import cpsutils.io
 
 import rvsearch
 from rvsearch import utils
-
-# radvel fit -s 120066.py -d 2019-2-19/master
-# radvel mcmc -s 120066.py -d 2019-2-19/master --maxGR 1.001 --minsteps 1000 --nsteps 10000 --minpercent 100
 
 """
 "keywords"
@@ -18,31 +15,29 @@ vary_dvdt = False # include a trend
 """
 """
 
-starname = 'HD190406'
+starname = 'HD 190406'
 nplanets = 1
-instnames = ['j', 'k', 'apf', 'lick']
+instnames = ['k', 'j', 'apf']
 ntels = len(instnames)
 fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # stellar mass & error
-stellar = dict(mstar=0.726, mstar_err=0.03)
+stellar = dict(mstar=1.07, mstar_err=.05)
 
 # load in data
-#data = io.loadcps('190406', apf=True, hires_rj=True, hires_rk=True,
-#                  lick=True, verbose=False, ctslim=3000, detrend=False, binsize=2.0)
-data = utils.read_from_csv('vst190406.csv', binsize=0.5)
+data = cpsutils.io.loadcps('190406', hires_rk=True, hires_rj=True, apf=True, ctslim=3000, binsize=2.0)
+data['tel'] = data['tel'].str.decode('utf-8')
 data['time'] = data['jd']
-#data['tel'] = data['tel'].str.decode('utf-8')
 time_base = np.median(data['time'])
 
 def initialize_params():
-    params = radvel.Parameters(1, basis='per tc e w k')
-    params['per1'] = radvel.Parameter(value=15277.6)
-    params['tc1'] = radvel.Parameter(value=2447856.9)
-    params['k1'] = radvel.Parameter(value=466.5)
-    params['e1'] = radvel.Parameter(value=0.40)
-    params['w1'] = radvel.Parameter(value=-1.20)
+    params = radvel.Parameters(1,basis='per tc e w k')
+    params['per1'] = radvel.Parameter(value=44495.8)
+    params['tc1'] = radvel.Parameter(value=2441100.06)
+    params['k1'] = radvel.Parameter(value=578.2)
+    params['e1'] = radvel.Parameter(value=0.63)
+    params['w1'] = radvel.Parameter(value=-1.85)
     params['dvdt'] = radvel.Parameter(value=0, vary=vary_dvdt)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
@@ -51,23 +46,18 @@ def initialize_params():
 
     return params
 
-
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
-params['gamma_j'] = radvel.Parameter(value=207.219, linear=True, vary=False)
-params['jit_j'] = radvel.Parameter(value=2.)
-params['gamma_k'] = radvel.Parameter(value=211.044, linear=True, vary=False)
-params['jit_k'] = radvel.Parameter(value=2.)
-params['gamma_apf'] = radvel.Parameter(value=-152.93, linear=True, vary=False)
-params['jit_apf'] = radvel.Parameter(value=2.)
-params['gamma_lick'] = radvel.Parameter(value=219.678, linear=True, vary=False)
-params['jit_lick'] = radvel.Parameter(value=2.)
-
+params['gamma_j'] = radvel.Parameter(value=0.0, vary=False, linear=True)
+params['jit_j'] = radvel.Parameter(value=7.8, vary=True)
+params['gamma_k'] = radvel.Parameter(value=0.0, vary=False, linear=True)
+params['jit_k'] = radvel.Parameter(value=8.4, vary=True)
+params['gamma_apf'] = radvel.Parameter(value=0.0, vary=False, linear=True)
+params['jit_apf'] = radvel.Parameter(value=8.2, vary=True)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
-    radvel.prior.HardBounds('jit_lick', 0.0, 10.0),
-    radvel.prior.HardBounds('jit_j', 0.0, 10.0),
-    radvel.prior.HardBounds('jit_k', 0.0, 10.0),
-    radvel.prior.HardBounds('jit_apf', 0.0, 10.0)
+    radvel.prior.HardBounds('jit_k', 0.1, 50.0),
+    radvel.prior.HardBounds('jit_j', 0.1, 50.0),
+    radvel.prior.HardBounds('jit_apf', 0.1, 50.0),
 ]
