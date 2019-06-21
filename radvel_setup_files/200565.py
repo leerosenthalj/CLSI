@@ -23,7 +23,7 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # stellar mass & error
-stellar = dict(mstar=1.01, mstar_err=.98)
+stellar = dict(mstar=1.01, mstar_err=.09)
 
 # load in data
 data = cpsutils.io.loadcps('200565', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=2.0)
