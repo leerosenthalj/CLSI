@@ -7,7 +7,7 @@ import radvel
 import rvsearch
 from rvsearch import utils
 
-starname = 'HD150554'
+starname = 'HD144287'
 nplanets = 1
 instnames = ['j']
 ntels = len(instnames)
