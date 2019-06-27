@@ -23,11 +23,11 @@ time_base = np.median(data['time'])
 def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')
 
-    params['per1'] = radvel.Parameter(value=2071.0)
-    params['tp1'] = radvel.Parameter(value=2454650)
-    params['k1'] = radvel.Parameter(value=7846.)
-    params['e1'] = radvel.Parameter(value=0.82)
-    params['w1'] = radvel.Parameter(value=0.734)
+    params['per1'] = radvel.Parameter(value=2076.46)
+    params['tp1'] = radvel.Parameter(value=2454625.2)
+    params['k1'] = radvel.Parameter(value=8018.54)
+    params['e1'] = radvel.Parameter(value=0.83)
+    params['w1'] = radvel.Parameter(value=0.73)
 
     params['dvdt'] = radvel.Parameter(value=0, vary=False)
     params['curv'] = radvel.Parameter(value=0, vary=False)
