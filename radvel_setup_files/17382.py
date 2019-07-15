@@ -5,6 +5,7 @@ import numpy as np
 import radvel
 from cpsutils import io
 
+import cpsutils
 import rvsearch
 from rvsearch import utils
 
@@ -29,8 +30,8 @@ bjd0 = 2450000.
 stellar = dict(mstar=0.726, mstar_err=0.03)
 
 # load in data
-#data = io.loadcps('190406', apf=True, hires_rj=True, hires_rk=True,
-#                  lick=True, verbose=False, ctslim=3000, detrend=False, binsize=2.0)
+data = io.loadcps('17382', hires_rj=True, hires_rk=False,
+                  verbose=False, ctslim=3000, detrend=False, binsize=1.0)
 data = utils.read_from_csv('vst17382.csv', binsize=0.5)
 data['time'] = data['jd']
 #data['tel'] = data['tel'].str.decode('utf-8')

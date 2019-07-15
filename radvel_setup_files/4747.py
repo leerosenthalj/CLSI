@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import radvel
 
+import cpsutils
 import rvsearch
 from rvsearch import utils
 
@@ -28,16 +29,9 @@ bjd0 = 2450000.
 stellar = dict(mstar=1.16, mstar_err=.12)
 
 # load in data
-'''
-data_cps = pd.read_csv('~/Dropbox/120066_radvel/120066.txt')
-data_mcd = pd.read_csv('~/Dropbox/120066_radvel/HD120066_McD.ALL',
-	names=['time','mnvel','errvel', 'SVAL','sval_err'], header=None,sep='\s+'
-)
-data_mcd['tel']='m'
-data_mcd['time'] -= 40000.
-'''
-#data = pd.concat([data_cps, data_mcd], ignore_index=True)
-data = utils.read_from_csv('vst4747.csv')
+#data = utils.read_from_csv('setup_data/vst4747.csv')
+data = cpsutils.io.loadcps('4747', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
+#data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
 time_base = np.median(data['time'])
 
 def initialize_params():

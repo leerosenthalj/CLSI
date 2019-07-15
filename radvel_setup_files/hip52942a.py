@@ -26,14 +26,12 @@ stellar = dict(mstar=1.05, mstar_err=.06)
 
 # load in data
 '''
-data_cps = pd.read_csv('~/Dropbox/120066_radvel/120066.txt')
-data_mcd = pd.read_csv('~/Dropbox/120066_radvel/HD120066_McD.ALL',
-	names=['time','mnvel','errvel', 'SVAL','sval_err'], header=None,sep='\s+'
-)
-data_mcd['tel']='m'
-data_mcd['time'] -= 40000.
+data =
 '''
-data = utils.read_from_csv('setup_data/HIP52942A.csv')
+#data = utils.read_from_csv('setup_data/HIP52942A.csv')
+data = cpsutils.io.loadcps('hip52942a', hires_rk=True, hires_rj=True,
+                           ctslim=3000, binsize=0.5)
+#data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
 data['time'] = data['bjd']
 time_base = np.median(data['time'])
 

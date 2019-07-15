@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import radvel
 
+import cpsutils
 import rvsearch
 from rvsearch import utils
 
@@ -16,11 +17,12 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # load in data
-data = utils.read_from_csv('./setup_data/vst18445.csv')
+#data = utils.read_from_csv('./setup_data/vst18445.csv')
+data = cpsutils.io.loadcps('239960', hires_rk=True, hires_rj=True,
+                           lick=False, ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
-data = data.loc[data.errvel <= 10].reset_index()
-#data = data.loc[data.tel == 'k']
+data = data.loc[data.errvel <= 10].reset_index() #Cut out five bad observations
 time_base = np.median(data['time'])
 
 def initialize_params():

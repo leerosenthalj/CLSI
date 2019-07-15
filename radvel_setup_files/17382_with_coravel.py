@@ -3,6 +3,7 @@ import pdb
 import pandas as pd
 import numpy as np
 import radvel
+import cpsutils
 from cpsutils import io
 
 import rvsearch
@@ -31,10 +32,9 @@ stellar = dict(mstar=0.726, mstar_err=0.03)
 # load in data
 #data = io.loadcps('190406', apf=True, hires_rj=True, hires_rk=True,
 #                  lick=True, verbose=False, ctslim=3000, detrend=False, binsize=2.0)
-data_folder = './'
+data_folder = './merged_datasets/'
 data = utils.read_from_csv(data_folder+'17382_with_coravel.csv', binsize=0.5)
 data['time'] = data['jd']
-#data['tel'] = data['tel'].str.decode('utf-8')
 time_base = np.median(data['time'])
 
 def initialize_params():
@@ -59,12 +59,10 @@ params = initialize_params()
 #params['gamma_j'] = radvel.Parameter(value=-50.279, linear=True, vary=False)
 params['gamma_j'] = radvel.Parameter(value=-615.8, linear=True, vary=False)
 params['jit_j'] = radvel.Parameter(value=13.6)
-#params['gamma_CORAVEL'] = radvel.Parameter(value=-50.279, linear=True, vary=False)
 params['gamma_CORAVEL'] = radvel.Parameter(value=357.3, linear=True, vary=False)
 params['jit_CORAVEL'] = radvel.Parameter(value=0.01, vary=False)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
-    radvel.prior.HardBounds('jit_j', 0.0, 50.0),
-#    radvel.prior.HardBounds('jit_CORAVEL', 0.0, 50.0),
+    radvel.prior.HardBounds('jit_j', 0.0, 50.0)
 ]

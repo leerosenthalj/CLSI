@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import radvel
 
+import cpsutils
 import rvsearch
 from rvsearch import utils
 
@@ -15,7 +16,9 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # load in data
-data = utils.read_from_csv('./setup_data/vst125612.csv')
+#data = utils.read_from_csv('./setup_data/vst125612.csv')
+data = cpsutils.io.loadcps('125612', hires_rk=True, hires_rj=True,
+                           ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
 time_base = np.median(data['time'])
@@ -29,9 +32,9 @@ def initialize_params():
     params['e1'] = radvel.Parameter(value=0.48)
     params['w1'] = radvel.Parameter(value=0.72)
 
-    params['per2'] = radvel.Parameter(value=4.15458)
+    params['per2'] = radvel.Parameter(value=4.1544)
     params['tp2'] = radvel.Parameter(value=2463058.4)
-    params['k2'] = radvel.Parameter(value=6.0)
+    params['k2'] = radvel.Parameter(value=6.32)
     params['e2'] = radvel.Parameter(value=0.21)
     params['w2'] = radvel.Parameter(value=-2.01)
 
@@ -51,9 +54,9 @@ def initialize_params():
 
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
-params['gamma_j'] = radvel.Parameter(value=0)
+params['gamma_j'] = radvel.Parameter(value=-31.1004)
 params['jit_j'] = radvel.Parameter(value=1.0)
-params['gamma_k'] = radvel.Parameter(value=0)
+params['gamma_k'] = radvel.Parameter(value=-17.4187)
 params['jit_k'] = radvel.Parameter(value=1.0)
 #params['gamma_lick'] = radvel.Parameter(value=222.728)
 #params['jit_lick'] = radvel.Parameter(value=2.)

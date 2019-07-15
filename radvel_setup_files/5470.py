@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import radvel
 
+import cpsutils
 import rvsearch
 from rvsearch import utils
 
@@ -15,7 +16,9 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # load in data
-data = utils.read_from_csv('../../rvdata/vst5470.csv')
+#data = utils.read_from_csv('../../rvdata/vst5470.csv')
+data = cpsutils.io.loadcps('5740', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
+#data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
 time_base = np.median(data['time'])
 
 def initialize_params():
