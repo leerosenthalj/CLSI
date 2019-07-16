@@ -16,9 +16,9 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # load in data
-data = utils.read_from_csv('./setup_data/vst37124.csv')
-#data = cpsutils.io.loadcps('37124', hires_rk=True, hires_rj=True,
-#                           apf=True, ctslim=3000, binsize=0.5)
+#data = utils.read_from_csv('./setup_data/vst37124.csv')
+data = cpsutils.io.loadcps('37124', hires_rk=True, hires_rj=True,
+                           apf=True, ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
 time_base = np.median(data['time'])
