@@ -16,9 +16,9 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # load in data
-data = utils.read_from_csv('./setup_data/vst98736.csv')
-#data = cpsutils.io.loadcps('98736', hires_rk=True, hires_rj=True,
-#                           ctslim=3000, binsize=0.5)
+#data = utils.read_from_csv('./setup_data/vst98736.csv')
+data = cpsutils.io.loadcps('98736', hires_rk=True, hires_rj=True,
+                           ctslim=3000, binsize=0.5)
 data = data.loc[data.tel == 'j'].reset_index()
 if 'jd' in data.columns:
     data['time'] = data['jd']
