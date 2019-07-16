@@ -30,7 +30,7 @@ bjd0 = 2450000.
 stellar = dict(mstar=0.726, mstar_err=0.03)
 
 # load in data
-#data = utils.read_from_csv('vst112914.csv', binsize=0.5)
+#data = utils.read_from_csv('./setup_data/vst112914.csv', binsize=0.5)
 data = cpsutils.io.loadcps('112914', hires_rk=False, hires_rj=True,
                            ctslim=3000, binsize=0.5)
 data['time'] = data['jd']
@@ -39,8 +39,8 @@ time_base = np.median(data['time'])
 
 def initialize_params():
     params = radvel.Parameters(1, basis='per tc e w k')
-    params['per1'] = radvel.Parameter(value=709.6)
-    params['tc1'] = radvel.Parameter(value=2454920.0)
+    params['per1'] = radvel.Parameter(value=709.54)
+    params['tc1'] = radvel.Parameter(value=2457758.54)#2454920.0)
     params['k1'] = radvel.Parameter(value=5672.0)
     params['e1'] = radvel.Parameter(value=0.32)
     params['w1'] = radvel.Parameter(value=1.11)

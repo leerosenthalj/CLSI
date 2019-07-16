@@ -27,17 +27,17 @@ stellar = dict(mstar=1.4, mstar_err=.08)
 
 # load in data
 data = cpsutils.io.loadcps('201203', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
-
+#data = utils.read_from_csv('./setup_data/vst201203.csv', binsize=0.5)
 data['time'] = data['jd']
 time_base = np.median(data['time'])
 
 def initialize_params():
     params = radvel.Parameters(1,basis='per tc e w k')
-    params['per1'] = radvel.Parameter(value=10006.7)
-    params['tc1'] = radvel.Parameter(value=245769.3)
-    params['k1'] = radvel.Parameter(value=806)
-    params['e1'] = radvel.Parameter(value=0.53)
-    params['w1'] = radvel.Parameter(value=-2.5)
+    params['per1'] = radvel.Parameter(value=16469.7)
+    params['tc1'] = radvel.Parameter(value=2457211.2)
+    params['k1'] = radvel.Parameter(value=786.5)
+    params['e1'] = radvel.Parameter(value=0.645)
+    params['w1'] = radvel.Parameter(value=-2.48)
     params['dvdt'] = radvel.Parameter(value=0, vary=vary_dvdt)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 

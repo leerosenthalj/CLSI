@@ -27,19 +27,19 @@ def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')
 
     params['per1'] = radvel.Parameter(value=556.29)
-    params['tp1'] = radvel.Parameter(value=2463233.1)
+    params['tp1'] = radvel.Parameter(value=2456557.62)
     params['k1'] = radvel.Parameter(value=80.74)
     params['e1'] = radvel.Parameter(value=0.48)
     params['w1'] = radvel.Parameter(value=0.72)
 
     params['per2'] = radvel.Parameter(value=4.1544)
-    params['tp2'] = radvel.Parameter(value=2463058.4)
+    params['tp2'] = radvel.Parameter(value=2458904.)#2463058.4)
     params['k2'] = radvel.Parameter(value=6.32)
     params['e2'] = radvel.Parameter(value=0.21)
     params['w2'] = radvel.Parameter(value=-2.01)
 
     params['per3'] = radvel.Parameter(value=2859.01)
-    params['tp3'] = radvel.Parameter(value=2463138.98)
+    params['tp3'] = radvel.Parameter(value=2457420.96)#2463138.98)
     params['k3'] = radvel.Parameter(value=100.16)
     params['e3'] = radvel.Parameter(value=0.13)
     params['w3'] = radvel.Parameter(value=-0.68)

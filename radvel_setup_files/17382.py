@@ -30,9 +30,9 @@ bjd0 = 2450000.
 stellar = dict(mstar=0.726, mstar_err=0.03)
 
 # load in data
+#data = utils.read_from_csv('./setup_data/vst17382.csv', binsize=0.5)
 data = io.loadcps('17382', hires_rj=True, hires_rk=False,
                   verbose=False, ctslim=3000, detrend=False, binsize=1.0)
-data = utils.read_from_csv('vst17382.csv', binsize=0.5)
 data['time'] = data['jd']
 #data['tel'] = data['tel'].str.decode('utf-8')
 time_base = np.median(data['time'])
@@ -40,11 +40,11 @@ time_base = np.median(data['time'])
 def initialize_params():
     params = radvel.Parameters(1, basis='per tc e w k')
     #From Halbwachs et al. 2018
-    params['per1'] = radvel.Parameter(value=5954.)
-    params['tc1'] = radvel.Parameter(value=2448024.2)
-    params['k1'] = radvel.Parameter(value=2957.0)
-    params['e1'] = radvel.Parameter(value=0.663)
-    params['w1'] = radvel.Parameter(value=1.933)
+    params['per1'] = radvel.Parameter(value=5554.71)
+    params['tc1'] = radvel.Parameter(value=2453540.68)#2448024.2)
+    params['k1'] = radvel.Parameter(value=2812.17)
+    params['e1'] = radvel.Parameter(value=0.656)
+    params['w1'] = radvel.Parameter(value=1.987)
     params['dvdt'] = radvel.Parameter(value=0, vary=vary_dvdt)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 

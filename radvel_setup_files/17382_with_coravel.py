@@ -40,11 +40,11 @@ time_base = np.median(data['time'])
 def initialize_params():
     params = radvel.Parameters(1, basis='per tc e w k')
     #From Halbwachs et al. 2018
-    params['per1'] = radvel.Parameter(value=5557.)
-    params['tc1'] = radvel.Parameter(value=2453545.3)
-    params['k1'] = radvel.Parameter(value=2822.8)
-    params['e1'] = radvel.Parameter(value=0.65)
-    params['w1'] = radvel.Parameter(value=1.989)
+    params['per1'] = radvel.Parameter(value=5560.49)
+    params['tc1'] = radvel.Parameter(value=2453545.07)#2453545.3)
+    params['k1'] = radvel.Parameter(value=2823.95)
+    params['e1'] = radvel.Parameter(value=0.656)
+    params['w1'] = radvel.Parameter(value=1.987)
     params['dvdt'] = radvel.Parameter(value=0, vary=vary_dvdt)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
