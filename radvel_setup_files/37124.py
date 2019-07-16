@@ -16,9 +16,9 @@ fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # load in data
-#data = utils.read_from_csv('./setup_data/vst37124.csv')
-data = cpsutils.io.loadcps('37124', hires_rk=True, hires_rj=True,
-                           apf=True, ctslim=3000, binsize=0.5)
+data = utils.read_from_csv('./setup_data/vst37124.csv')
+#data = cpsutils.io.loadcps('37124', hires_rk=True, hires_rj=True,
+#                           apf=True, ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
 time_base = np.median(data['time'])
@@ -26,17 +26,15 @@ time_base = np.median(data['time'])
 def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')
 
-    params['per1'] = radvel.Parameter(value=154.196)
-    #params['tp1'] = radvel.Parameter(value=-12.1515)
-    params['tp1'] = radvel.Parameter(value=-503.23)
-    params['k1'] = radvel.Parameter(value=28.79)
+    params['per1'] = radvel.Parameter(value=154.25)
+    params['tp1'] = radvel.Parameter(value=2454935.77)
+    params['k1'] = radvel.Parameter(value=28.76)
     params['e1'] = radvel.Parameter(value=0.05415)
     params['w1'] = radvel.Parameter(value=2.28)
 
     params['per2'] = radvel.Parameter(value=885.265)
     params['tp2'] = radvel.Parameter(value=2454939.34)
-    #params['k2'] = radvel.Parameter(value=14.8136)
-    params['k2'] = radvel.Parameter(value=15.19)
+    params['k2'] = radvel.Parameter(value=15.3)
     params['e2'] = radvel.Parameter(value=0.12)
     params['w2'] = radvel.Parameter(value=0.76)
 
