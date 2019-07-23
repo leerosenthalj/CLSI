@@ -22,6 +22,7 @@ data = cpsutils.io.loadcps('68988', hires_rk=True, hires_rj=True,
 if 'jd' in data.columns:
     data['time'] = data['jd']
 time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')

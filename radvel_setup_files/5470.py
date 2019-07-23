@@ -20,6 +20,7 @@ bjd0 = 2450000.
 data = cpsutils.io.loadcps('5740', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
 #data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
 time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')

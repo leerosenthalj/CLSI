@@ -33,7 +33,7 @@ stellar = dict(mstar=0.726, mstar_err=0.03)
 #                  lick=True, verbose=False, ctslim=3000, detrend=False, binsize=2.0)
 data = utils.read_from_csv('vst190406.csv', binsize=0.5)
 data['time'] = data['jd']
-#data['tel'] = data['tel'].str.decode('utf-8')
+data['tel'] = data['tel'].str.decode('utf-8')
 time_base = np.median(data['time'])
 
 def initialize_params():

@@ -30,6 +30,7 @@ data = cpsutils.io.loadcps('201203', hires_rk=True, hires_rj=True, lick=False, c
 #data = utils.read_from_csv('./setup_data/vst201203.csv', binsize=0.5)
 data['time'] = data['jd']
 time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(1,basis='per tc e w k')

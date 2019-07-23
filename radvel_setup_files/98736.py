@@ -23,6 +23,7 @@ data = data.loc[data.tel == 'j'].reset_index()
 if 'jd' in data.columns:
     data['time'] = data['jd']
 time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')

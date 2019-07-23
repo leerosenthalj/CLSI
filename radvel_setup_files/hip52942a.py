@@ -34,6 +34,7 @@ data = cpsutils.io.loadcps('hip52942a', hires_rk=True, hires_rj=True,
 #data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
 data['time'] = data['bjd']
 time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(1,basis='per tc e w k')

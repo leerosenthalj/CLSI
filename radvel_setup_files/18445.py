@@ -24,6 +24,7 @@ if 'jd' in data.columns:
     data['time'] = data['jd']
 data = data.loc[data.errvel <= 10].reset_index() #Cut out five bad observations
 time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')

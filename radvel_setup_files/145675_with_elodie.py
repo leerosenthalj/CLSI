@@ -31,6 +31,7 @@ data = utils.read_from_csv('/data/user/lrosenth/legacy/merged_datasets/145675_wi
 data['time'] = data['jd']
 baseline = np.max(data.time.values) - np.min(data.time.values)
 time_base = np.median(data.time.values)
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(1,basis='per tp e w k')

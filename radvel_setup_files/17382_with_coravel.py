@@ -36,6 +36,7 @@ data_folder = './merged_datasets/'
 data = utils.read_from_csv(data_folder+'17382_with_coravel.csv', binsize=0.5)
 data['time'] = data['jd']
 time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(1, basis='per tc e w k')
