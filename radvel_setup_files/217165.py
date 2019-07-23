@@ -26,7 +26,7 @@ bjd0 = 2450000.
 # stellar = dict(mstar=0.57, mstar_err=.02)
 
 # load in data
-data = cpsutils.io.loadcps('217165', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
+data = cpsutils.io.loadcps('217165', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=0.0)
 data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
 
 data['time'] = data['jd']

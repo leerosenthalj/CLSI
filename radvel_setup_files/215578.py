@@ -26,7 +26,7 @@ bjd0 = 2450000.
 # stellar = dict(mstar=0.57, mstar_err=.02)
 
 # load in data
-data = cpsutils.io.loadcps('215578', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
+data = cpsutils.io.loadcps('215578', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=0.0)
 
 data['time'] = data['jd']
 time_base = np.median(data['time'])
