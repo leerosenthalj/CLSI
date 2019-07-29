@@ -60,5 +60,5 @@ params['jit_j'] = radvel.Parameter(value=2.)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
-    radvel.prior.HardBounds('jit_j', 0.0, 10.0),
+    radvel.prior.HardBounds('jit_j', 0.0, 10.0)
 ]

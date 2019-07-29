@@ -32,7 +32,7 @@ stellar = dict(mstar=0.726, mstar_err=0.03)
 # load in data
 #data = utils.read_from_csv('./setup_data/vst17382.csv', binsize=0.5)
 data = io.loadcps('17382', hires_rj=True, hires_rk=False,
-                  verbose=False, ctslim=3000, detrend=False, binsize=1.0)
+                  verbose=False, ctslim=3000, detrend=False, binsize=0.5)
 data['time'] = data['jd']
 data['tel'] = data['tel'].str.decode('utf-8')
 time_base = np.median(data['time'])
@@ -61,5 +61,5 @@ params['jit_j'] = radvel.Parameter(value=2.)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
-    radvel.prior.HardBounds('jit_j', 0.0, 10.0),
+    radvel.prior.HardBounds('jit_j', 0.0, 10.0)
 ]

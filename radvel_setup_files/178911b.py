@@ -30,7 +30,7 @@ stellar = dict(mstar=0.726, mstar_err=0.03)
 
 # load in data
 data = io.loadcps('178911b', hires_rj=True, hires_rk=True,
-                  verbose=False, ctslim=3000, detrend=False, binsize=1.0)
+                  verbose=False, ctslim=3000, detrend=False, binsize=0.5)
 data['time'] = data['jd']
 data['tel'] = data['tel'].str.decode('utf-8')
 time_base = np.median(data['time'])

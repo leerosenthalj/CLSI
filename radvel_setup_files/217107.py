@@ -10,7 +10,7 @@ bjd0 = 0.
 planet_letters = {1: 'b', 2: 'c'}
 
 # Define prior centers (initial guesses) in a basis of your choice (need not be in the fitting basis)
-anybasis_params = radvel.Parameters(nplanets, basis='per tc e w k', 
+anybasis_params = radvel.Parameters(nplanets, basis='per tc e w k',
                                     planet_letters=planet_letters) # initialize Parameters object
 anybasis_params['per1'] = radvel.Parameter(value=7.126816)
 anybasis_params['tc1'] = radvel.Parameter(value=2456306.85)
@@ -28,7 +28,7 @@ anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
 anybasis_params['curv'] = radvel.Parameter(value=0.0)
 
 # load in data
-data = cpsutils.io.loadcps('217107', hires_rk=True, hires_rj=True, apf=True, ctslim=3000, binsize=2.0)
+data = cpsutils.io.loadcps('217107', hires_rk=True, hires_rj=True, apf=True, ctslim=3000, binsize=0.5)
 data['time'] = data['jd']
 data['tel'] = data['tel'].str.decode('utf-8')
 
@@ -64,6 +64,3 @@ priors = [
           radvel.prior.HardBounds('jit_j', 0.0, 50.0),
           radvel.prior.HardBounds('jit_k', 0.0, 50.0)
          ]
-
-
-

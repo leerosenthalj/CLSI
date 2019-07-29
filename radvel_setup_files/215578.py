@@ -26,7 +26,7 @@ bjd0 = 2450000.
 # stellar = dict(mstar=0.57, mstar_err=.02)
 
 # load in data
-data = cpsutils.io.loadcps('215578', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=0.0)
+data = cpsutils.io.loadcps('215578', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=0.5)
 
 data['time'] = data['jd']
 time_base = np.median(data['time'])
@@ -50,12 +50,12 @@ def initialize_params():
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
 params['gamma_j'] = radvel.Parameter(value=2795.0, vary=False, linear=True)
-params['jit_j'] = radvel.Parameter(value=19.0, vary=True)
+params['jit_j'] = radvel.Parameter(value=5.0, vary=True)
 params['gamma_k'] = radvel.Parameter(value=2792.6, vary=False, linear=True)
 params['jit_k'] = radvel.Parameter(value=8.7, vary=True)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
     radvel.prior.HardBounds('jit_k', 0.1, 50.0),
-    radvel.prior.HardBounds('jit_j', 0.1, 50.0),
+    radvel.prior.HardBounds('jit_j', 0.1, 20.0),
 ]

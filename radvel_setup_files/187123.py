@@ -10,7 +10,7 @@ bjd0 = 0.
 planet_letters = {1: 'b', 2: 'c'}
 
 # Define prior centers (initial guesses) in a basis of your choice (need not be in the fitting basis)
-anybasis_params = radvel.Parameters(nplanets, basis='per tc e w k', 
+anybasis_params = radvel.Parameters(nplanets, basis='per tc e w k',
                                     planet_letters=planet_letters) # initialize Parameters object
 anybasis_params['per1'] = radvel.Parameter(value=3.096589)
 anybasis_params['tc1'] = radvel.Parameter(value=2455665.887479)
@@ -25,8 +25,8 @@ anybasis_params['k2'] = radvel.Parameter(value=25.100000)
 
 time_base = 2455663.735766
 anybasis_params['dvdt'] = radvel.Parameter(value=-0.00124)
-anybasis_params['curv'] = radvel.Parameter(value=0.0)
-data = cpsutils.io.loadcps('187123', hires_rk=True, hires_rj=True, apf=True, ctslim=3000, binsize=2.0)
+anybasis_params['curv'] = radvel.Parameter(value=0.0, vary=False)
+data = cpsutils.io.loadcps('187123', hires_rk=True, hires_rj=True, apf=True, ctslim=3000, binsize=0.5)
 data['time'] = data['jd']
 data['tel'] = data['tel'].str.decode('utf-8')
 
@@ -58,11 +58,5 @@ mod.params['jit_k'].vary = True
 
 priors = [
           radvel.prior.EccentricityPrior(nplanets),
-          radvel.prior.PositiveKPrior(nplanets),
-          # radvel.prior.HardBounds('jit_apf', 0.0, 50.0),
-          # radvel.prior.HardBounds('jit_j', 0.0, 50.0),
-          # radvel.prior.HardBounds('jit_k', 0.0, 50.0)
+          radvel.prior.PositiveKPrior(nplanets)
          ]
-
-
-

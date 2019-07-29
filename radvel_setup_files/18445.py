@@ -11,14 +11,13 @@ from rvsearch import utils
 starname = 'HD18445'
 nplanets = 1
 instnames = ['k', 'j']
-#instnames = ['k']
 ntels = len(instnames)
 fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # load in data
 #data = utils.read_from_csv('./setup_data/vst18445.csv')
-data = cpsutils.io.loadcps('239960', hires_rk=True, hires_rj=True,
+data = cpsutils.io.loadcps('18445', hires_rk=True, hires_rj=True,
                            lick=False, ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
@@ -45,9 +44,9 @@ def initialize_params():
 
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
-params['gamma_j'] = radvel.Parameter(value=-258.463)
+params['gamma_j'] = radvel.Parameter(value=-258.463, vary=False, linear=True)
 params['jit_j'] = radvel.Parameter(value=1.)
-params['gamma_k'] = radvel.Parameter(value=-258.463)
+params['gamma_k'] = radvel.Parameter(value=-258.463, vary=False, linear=True)
 params['jit_k'] = radvel.Parameter(value=1.)
 
 priors = [

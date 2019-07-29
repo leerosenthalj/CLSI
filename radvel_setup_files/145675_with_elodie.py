@@ -56,13 +56,13 @@ params['gamma_k'] = radvel.Parameter(value=-45.33)
 params['jit_k'] = radvel.Parameter(value=3.36)
 params['gamma_a'] = radvel.Parameter(value=-38.76)
 params['jit_a'] = radvel.Parameter(value=4.03)
-params['gamma_m'] = radvel.Parameter(value=-5.07)
-params['jit_m'] = radvel.Parameter(value=6.13)
+params['gamma_elodie'] = radvel.Parameter(value=-5.07)
+params['jit_elodie'] = radvel.Parameter(value=6.13)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
     radvel.prior.HardBounds('jit_k', 0.0, 10.0),
     radvel.prior.HardBounds('jit_j', 0.0, 10.0),
     radvel.prior.HardBounds('jit_a', 0.0, 10.0),
-    radvel.prior.HardBounds('jit_m', 0.0, 10.0),
+    radvel.prior.HardBounds('jit_elodie', 0.0, 20.0)
 ]

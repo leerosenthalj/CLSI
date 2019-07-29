@@ -26,7 +26,7 @@ bjd0 = 2450000.
 # stellar = dict(mstar=0.57, mstar_err=.02)
 
 # load in data
-data = cpsutils.io.loadcps('217165', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=0.0)
+data = cpsutils.io.loadcps('217165', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=0.5)
 data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
 
 data['time'] = data['jd']
@@ -58,5 +58,5 @@ params['jit_k'] = radvel.Parameter(value=3.8, vary=True)
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
     radvel.prior.HardBounds('jit_k', 0.1, 50.0),
-    radvel.prior.HardBounds('jit_j', 0.1, 50.0),
+    radvel.prior.HardBounds('jit_j', 0.1, 20.0),
 ]

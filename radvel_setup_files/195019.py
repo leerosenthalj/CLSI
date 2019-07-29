@@ -30,7 +30,7 @@ stellar = dict(mstar=0.726, mstar_err=0.03)
 
 # load in data
 data = io.loadcps('195019', hires_rj=True, hires_rk=True,
-                  lick=True, verbose=False, ctslim=3000, detrend=False, binsize=1.0)
+                  lick=True, verbose=False, ctslim=3000, detrend=False, binsize=0.5)
 data['time'] = data['jd']
 data['tel'] = data['tel'].str.decode('utf-8')
 time_base = np.median(data['time'])
@@ -42,7 +42,7 @@ def initialize_params():
     params['k1'] = radvel.Parameter(value=272.513)
     params['e1'] = radvel.Parameter(value=0.01529)
     params['w1'] = radvel.Parameter(value=-2.32088)
-    params['dvdt'] = radvel.Parameter(value=0, vary=False)
+    params['dvdt'] = radvel.Parameter(value=0, vary=True)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
     # Convert input orbital parameters into the fitting basis

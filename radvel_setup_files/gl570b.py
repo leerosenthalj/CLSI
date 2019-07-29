@@ -34,7 +34,7 @@ data_mcd = pd.read_csv('~/Dropbox/120066_radvel/HD120066_McD.ALL',
 data_mcd['tel']='m'
 data_mcd['time'] -= 40000.
 '''
-data = cpsutils.io.loadcps('gl570b', hires_rk=False, hires_rj=True, lick=True, ctslim=500, binsize=0.0)
+data = cpsutils.io.loadcps('gl570b', hires_rk=False, hires_rj=True, lick=True, ctslim=500, binsize=0.5)
 data = data[data['obnm'] != 'rj20.427']  # these appear to be outliers
 data = data[data['obnm'] != 'rj21.410']  # these appear to be outliers
 
@@ -66,6 +66,5 @@ params['jit_lick'] = radvel.Parameter(value=959.0, vary=True)
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
-    radvel.prior.HardBounds('jit_lick', 50.0, 15000.0),
-#    radvel.prior.HardBounds('jit_j', 0.0, 30.0),
+    radvel.prior.HardBounds('jit_lick', 50.0, 15000.0)
 ]

@@ -27,7 +27,7 @@ bjd0 = 2450000.
 
 # load in data
 data = cpsutils.io.loadcps('239960', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=0.5)
-data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
+#data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing. Wrong star
 
 data['time'] = data['jd']
 time_base = np.median(data['time'])

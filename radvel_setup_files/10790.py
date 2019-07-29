@@ -17,7 +17,7 @@ bjd0 = 2450000.
 
 # load in data
 #data = utils.read_from_csv('./setup_data/vst10790.csv')
-data = cpsutils.io.loadcps('10790', hires_rk=True, hires_rj=True, lick=False, ctslim=303, binsize=0.0)
+data = cpsutils.io.loadcps('10790', hires_rk=False, hires_rj=True, lick=False, ctslim=3000, binsize=0.5)
 #data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
 if 'jd' in data.columns:
     data['time'] = data['jd']
@@ -43,7 +43,7 @@ def initialize_params():
 
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
-params['gamma_j'] = radvel.Parameter(value=137)
+params['gamma_j'] = radvel.Parameter(value=137, vary=False, linear=True)
 params['jit_j'] = radvel.Parameter(value=2.)
 
 priors = [

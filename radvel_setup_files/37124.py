@@ -55,11 +55,11 @@ def initialize_params():
 
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
-params['gamma_j'] = radvel.Parameter(value=3.904)
+params['gamma_j'] = radvel.Parameter(value=3.904, vary=False, linear=True)
 params['jit_j'] = radvel.Parameter(value=3.)
-params['gamma_k'] = radvel.Parameter(value=-1.107)
+params['gamma_k'] = radvel.Parameter(value=-1.107, vary=False, linear=True)
 params['jit_k'] = radvel.Parameter(value=3.)
-params['gamma_apf'] = radvel.Parameter(value=-3.7808)
+params['gamma_apf'] = radvel.Parameter(value=-3.7808, vary=False, linear=True)
 params['jit_apf'] = radvel.Parameter(value=3.)
 
 priors = [

@@ -1,7 +1,0 @@
-python search_away.py 'vst114783.csv'
-python search_away.py 'vst128311.csv'
-python search_away.py 'vst143761.csv'
-python search_away.py 'vst168009.csv'
-python search_away.py 'vst190360.csv'
-python search_away.py 'vst42618.csv'
-python search_away.py 'vst95128.csv'

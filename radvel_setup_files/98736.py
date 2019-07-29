@@ -17,7 +17,7 @@ bjd0 = 2450000.
 
 # load in data
 #data = utils.read_from_csv('./setup_data/vst98736.csv')
-data = cpsutils.io.loadcps('98736', hires_rk=True, hires_rj=True,
+data = cpsutils.io.loadcps('98736', hires_rk=False, hires_rj=True,
                            ctslim=3000, binsize=0.5)
 data = data.loc[data.tel == 'j'].reset_index()
 if 'jd' in data.columns:
@@ -44,7 +44,7 @@ def initialize_params():
 
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
-params['gamma_j'] = radvel.Parameter(value=0)
+params['gamma_j'] = radvel.Parameter(value=0, vary=False, linear=True)
 params['jit_j'] = radvel.Parameter(value=2.)
 
 priors = [
