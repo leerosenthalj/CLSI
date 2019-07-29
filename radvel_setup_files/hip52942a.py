@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import radvel
 
+import cpsutils.io
+
 import rvsearch
 from rvsearch import utils
 
