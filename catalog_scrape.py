@@ -48,7 +48,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
         for k in post.params.keys():
             params[k] = post.params[k].value
             if fancy:
-                if chains != 'empty':
+                if isinstance(chains, pd.DataFrame):
                     #pdb.set_trace()
                     params[k+'_med']   = np.median(chains[k])
                     params[k+'_minus'] = np.percentile(chains[k], 15.9)
@@ -107,7 +107,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                     props.loc[props_index, 'a{}'.format(n)] = \
                         radvel.utils.semi_major_axis(P, Mstar)
                     if fancy:
-                        if chains != 'empty':
+                        if isinstance(chains, pd.DataFrame):
                             Mchain = radvel.utils.Msini(chains['k{}'.format(n)],
                                 chains['per{}'.format(n)], masschain,
                                 chains['e{}'.format(n)], Msini_units='jupiter')
