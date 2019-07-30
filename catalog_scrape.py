@@ -46,9 +46,10 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
         for k in post.params.keys():
             params[k] = post.params[k].value
             if fancy:
-                params[k+'_med']   = np.median(chains[k])
-                params[k+'_minus'] = np.percentile(chains[k], 15.9)
-                params[k+'_plus']  = np.percentile(chains[k], 84.1)
+                if chains != np.nan:
+                    params[k+'_med']   = np.median(chains[k])
+                    params[k+'_minus'] = np.percentile(chains[k], 15.9)
+                    params[k+'_plus']  = np.percentile(chains[k], 84.1)
         all_params.append(params)
 
     # Save radvel parameters as a pandas dataframe.
