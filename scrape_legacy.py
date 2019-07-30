@@ -8,4 +8,4 @@ from catalog_scrape import scrape
 starnames = [name for name in os.listdir('.')
             if os.path.isdir(os.path.join('.', name))]
 
-system_props = scrape(starnames, mass_db_name='./legacy_specmatch_medians.csv')
+system_props = scrape(starnames, star_db_name='./legacy_specmatch_medians.csv')
