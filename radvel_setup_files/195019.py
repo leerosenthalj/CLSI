@@ -20,7 +20,7 @@ vary_dvdt = False # include a trend
 
 starname = 'HD195019'
 nplanets = 1
-instnames = ['k', 'j', 'lick']
+instnames = ['k', 'j']#, 'lick']
 ntels = len(instnames)
 fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
@@ -37,11 +37,11 @@ time_base = np.median(data['time'])
 
 def initialize_params():
     params = radvel.Parameters(1, basis='per tp e w k')
-    params['per1'] = radvel.Parameter(value=18.2012)
-    params['tp1'] = radvel.Parameter(value=2450206.2)
+    params['per1'] = radvel.Parameter(value=18.20114, vary=False)
+    params['tp1'] = radvel.Parameter(value=2454484.84)
     params['k1'] = radvel.Parameter(value=272.513)
-    params['e1'] = radvel.Parameter(value=0.01529)
-    params['w1'] = radvel.Parameter(value=-2.32088)
+    params['e1'] = radvel.Parameter(value=0.018)
+    params['w1'] = radvel.Parameter(value=-2.17)
     params['dvdt'] = radvel.Parameter(value=0, vary=True)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
@@ -54,16 +54,19 @@ def initialize_params():
 # initialize the orbit parameters and the orbit model
 params = initialize_params()
 params['gamma_j'] = radvel.Parameter(value=39.1336, linear=True, vary=False)
-params['jit_j'] = radvel.Parameter(value=2.)
+params['jit_j'] = radvel.Parameter(value=3.9)
 params['gamma_k'] = radvel.Parameter(value=22.58, linear=True, vary=False)
-params['jit_k'] = radvel.Parameter(value=2.)
-params['gamma_lick'] = radvel.Parameter(value=-39.9957, linear=True, vary=False)
-params['jit_lick'] = radvel.Parameter(value=2.)
+params['jit_k'] = radvel.Parameter(value=4.5)
+# params['gamma_lick'] = radvel.Parameter(value=-39.9957, linear=True, vary=False)
+# params['jit_lick'] = radvel.Parameter(value=2.)
 
+# params['secosw1'].vary = False
+# params['sesinw1'].vary = False
 
 priors = [
     radvel.prior.EccentricityPrior( 1 ), # Keeps eccentricity < 1
-    radvel.prior.HardBounds('jit_lick', 0.0, 20.0),
+    radvel.prior.PositiveKPrior(1),
+#    radvel.prior.HardBounds('jit_lick', 0.0, 20.0),
     radvel.prior.HardBounds('jit_j', 0.0, 10.0),
     radvel.prior.HardBounds('jit_k', 0.0, 10.0)
 ]
