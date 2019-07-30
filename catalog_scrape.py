@@ -32,7 +32,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             try:
                 chains = pd.read_csv(star+'/chains.csv.tar.bz2')
             except (RuntimeError, FileNotFoundError):
-                chains = np.nan
+                chains = 'empty'
 
         if post.params.num_planets == 1:
             if post.params['k1'].value == 0.:
@@ -48,8 +48,8 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
         for k in post.params.keys():
             params[k] = post.params[k].value
             if fancy:
-                if chains != np.nan:
-                    pdb.set_trace()
+                if chains != 'empty':
+                    #pdb.set_trace()
                     params[k+'_med']   = np.median(chains[k])
                     params[k+'_minus'] = np.percentile(chains[k], 15.9)
                     params[k+'_plus']  = np.percentile(chains[k], 84.1)
@@ -90,9 +90,9 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             if fancy:
                 try:
                     chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+                    masschain = np.random.normal(Mstar, uMstar, len(chains))
                 except (RuntimeError, FileNotFoundError):
-                    chains = np.nan
-                masschain = np.random.normal(Mstar, uMstar, len(chains))
+                    chains = 'empty'
                 #masschain = Mstar
 
             # For each found planet, compute mass and semi-major axis
@@ -107,7 +107,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                     props.loc[props_index, 'a{}'.format(n)] = \
                         radvel.utils.semi_major_axis(P, Mstar)
                     if fancy:
-                        if chains != np.nan:
+                        if chains != 'empty':
                             Mchain = radvel.utils.Msini(chains['k{}'.format(n)],
                                 chains['per{}'.format(n)], masschain,
                                 chains['e{}'.format(n)], Msini_units='jupiter')
