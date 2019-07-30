@@ -47,6 +47,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             params[k] = post.params[k].value
             if fancy:
                 if chains != np.nan:
+                    pdb.set_trace()
                     params[k+'_med']   = np.median(chains[k])
                     params[k+'_minus'] = np.percentile(chains[k], 15.9)
                     params[k+'_plus']  = np.percentile(chains[k], 84.1)
