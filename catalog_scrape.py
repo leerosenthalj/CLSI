@@ -27,7 +27,10 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                                 try again later.'.format(star))
             continue
         if fancy:
-            chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+            try:
+                chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+            except (RuntimeError, FileNotFoundError):
+                chains = np.nan
 
         if post.params.num_planets == 1:
             if post.params['k1'].value == 0.:
@@ -81,7 +84,10 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
 
             #Make a fake posterior for stellar mass.
             if fancy:
-                chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+                try:
+                    chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+                except (RuntimeError, FileNotFoundError):
+                    chains = np.nan
                 masschain = np.random.normal(Mstar, uMstar, len(chains))
                 #masschain = Mstar
 
@@ -97,24 +103,25 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                     props.loc[props_index, 'a{}'.format(n)] = \
                         radvel.utils.semi_major_axis(P, Mstar)
                     if fancy:
-                        Mchain = radvel.utils.Msini(chains['k{}'.format(n)],
-                            chains['per{}'.format(n)], masschain,
-                            chains['e{}'.format(n)], Msini_units='jupiter')
-                        props.loc[props_index, 'M{}_med'.format(n)] = \
-                            np.median(Mchain)
-                        props.loc[props_index, 'M{}_minus'.format(n)] = \
-                            np.percentile(Mchain, 15.9)
-                        props.loc[props_index, 'M{}_plus'.format(n)] = \
-                            np.percentile(Mchain, 84.1)
+                        if chains != np.nan:
+                            Mchain = radvel.utils.Msini(chains['k{}'.format(n)],
+                                chains['per{}'.format(n)], masschain,
+                                chains['e{}'.format(n)], Msini_units='jupiter')
+                            props.loc[props_index, 'M{}_med'.format(n)] = \
+                                np.median(Mchain)
+                            props.loc[props_index, 'M{}_minus'.format(n)] = \
+                                np.percentile(Mchain, 15.9)
+                            props.loc[props_index, 'M{}_plus'.format(n)] = \
+                                np.percentile(Mchain, 84.1)
 
-                        achain = radvel.utils.semi_major_axis(chains['per{}'.format(n)],
-                                               masschain)
-                        props.loc[props_index, 'a{}_med'.format(n)] = \
-                            np.median(achain)
-                        props.loc[props_index, 'a{}_minus'.format(n)] = \
-                            np.percentile(achain, 15.9)
-                        props.loc[props_index, 'a{}_plus'.format(n)] = \
-                            np.percentile(achain, 84.1)
+                            achain = radvel.utils.semi_major_axis(chains['per{}'.format(n)],
+                                                                  masschain)
+                            props.loc[props_index, 'a{}_med'.format(n)] = \
+                                np.median(achain)
+                            props.loc[props_index, 'a{}_minus'.format(n)] = \
+                                np.percentile(achain, 15.9)
+                            props.loc[props_index, 'a{}_plus'.format(n)] = \
+                                np.percentile(achain, 84.1)
 
     props.to_csv('system_props.csv')
     return props
