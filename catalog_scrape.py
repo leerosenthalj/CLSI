@@ -60,6 +60,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
     props = pd.DataFrame(all_params)
 
     if star_db_name is not None:
+        print(star)
         try:
             star_db = pd.read_csv(star_db_name)
         except (RuntimeError, FileNotFoundError):
@@ -128,5 +129,5 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                             props.loc[props_index, 'a{}_plus'.format(n)] = \
                                 np.percentile(achain, 84.1)
 
-    props.to_csv('system_props.csv')
+            props.to_csv('system_props.csv')
     return props
