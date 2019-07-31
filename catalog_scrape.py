@@ -47,17 +47,32 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
         params['num_planets'] = num_planets
 
         for k in post.params.keys():
-            params[k] = post.params[k].value
-            if fancy:
-                if isinstance(chains, pd.DataFrame):
-                    #pdb.set_trace()
-                    params[k+'_med']   = np.median(chains[k])
-                    params[k+'_minus'] = np.percentile(chains[k], 15.9)
-                    params[k+'_plus']  = np.percentile(chains[k], 84.1)
+            if post.params[k].vary:
+                params[k] = post.params[k].value
+                if fancy:
+                    if isinstance(chains, pd.DataFrame):
+                        params[k+'_med']   = np.median(chains[k])
+                        params[k+'_minus'] = np.percentile(chains[k], 15.9)
+                        params[k+'_plus']  = np.percentile(chains[k], 84.1)
+        if num_planets > 0:
+            for n in np.arange(1, num_planets+1):
+                ekey = 'e{}'.format(n)
+                wkey = 'w{}'.format(n)
+                tkey = 'tp{}'.format(n)
+                params[ekey] = post.params[ekey].value
+                params[wkey] = post.params[wkey].value
+                params[tkey] = post.params[tkey].value
+                if fancy:
+                    if isinstance(chains, pd.DataFrame):
+                        params[ekey+'_med']   = np.median(chains[ekey])
+                        params[wkey+'_minus'] = np.percentile(chains[wkey], 15.9)
+                        params[tkey+'_plus']  = np.percentile(chains[tkey], 84.1)
+
         all_params.append(params)
 
     # Save radvel parameters as a pandas dataframe.
     props = pd.DataFrame(all_params)
+    props.to_csv('system_props_no_mass.csv')
 
     if star_db_name is not None:
         print(star)
@@ -84,17 +99,21 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             Mstar = star_db.loc[star_index, 'iso_mass']
             props.loc[props_index, 'Mstar'] = Mstar
             # Save stellar mass uncertainty.
-            uMstar = np.mean([star_db.loc[star_index, 'iso_mass_err1'],
-                              star_db.loc[star_index, 'iso_mass_err2']])
+            uMstar = np.mean(np.absolute[star_db.loc[star_index, 'iso_mass_err1'],
+                                         star_db.loc[star_index, 'iso_mass_err2']])
             props.loc[props_index, 'uMstar'] = uMstar
 
             #Make a fake posterior for stellar mass.
             if fancy:
                 try:
                     chains = pd.read_csv(star+'/chains.csv.tar.bz2')
-                    masschain = np.random.normal(Mstar, uMstar, len(chains))
                 except (RuntimeError, FileNotFoundError):
                     chains = 'empty'
+                try:
+                    masschain = np.random.normal(Mstar, uMstar, len(chains))
+                except (RuntimeError, ValueError):
+                    masschain = 1
+                    pdb.set_trace()
                 #masschain = Mstar
 
             # For each found planet, compute mass and semi-major axis
@@ -110,9 +129,11 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                         radvel.utils.semi_major_axis(P, Mstar)
                     if fancy:
                         if isinstance(chains, pd.DataFrame):
+                            echain = chains['secosw{}'.format(n)]**2 + \
+                                     chains['sesinw{}'.format(n)]**2
                             Mchain = radvel.utils.Msini(chains['k{}'.format(n)],
                                 chains['per{}'.format(n)], masschain,
-                                chains['e{}'.format(n)], Msini_units='jupiter')
+                                echain, Msini_units='jupiter')
                             props.loc[props_index, 'M{}_med'.format(n)] = \
                                 np.median(Mchain)
                             props.loc[props_index, 'M{}_minus'.format(n)] = \
