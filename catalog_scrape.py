@@ -32,7 +32,6 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
         if fancy:
             try:
                 chains = pd.read_csv(star+'/chains.csv.tar.bz2')
-                masschain = np.random.normal(0, 1, len(chains))
             except (RuntimeError, FileNotFoundError):
                 chains = 'empty'
 
