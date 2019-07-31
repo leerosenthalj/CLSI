@@ -75,7 +75,6 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
     props.to_csv('system_props_no_mass.csv')
 
     if star_db_name is not None:
-        print(star)
         try:
             star_db = pd.read_csv(star_db_name)
         except (RuntimeError, FileNotFoundError):
@@ -83,24 +82,27 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
 
         # Add enough columns to account for system with the most signals.
         max_num_planets = np.amax(nplanets)
+        props['Mstar'] = np.nan
         for n in np.arange(1, max_num_planets+1):
-            props['Mstar'] = np.nan
             props['M{}'.format(n)] = np.nan
             props['a{}'.format(n)] = np.nan
 
+        merge = props.merge(star_db, on='name')
+        props = merge
         # Save median star mass, uncertainties
-        for star in starlist:
+        for star in merge['name'].to_list():
+            print(star)
             try:
+                #index = props.index[props['name'] == str(star)][0]
                 props_index = props.index[props['name'] == str(star)][0]
                 star_index = star_db.index[star_db['name'] == str(star)][0]
             except IndexError:
                 continue
-            # Save stellar mass, to be used in mass and orbital calculations.
+            # Save stellar mass and error, to be used in mass and orbital calculations.
             Mstar = star_db.loc[star_index, 'iso_mass']
+            uMstar = np.mean(np.absolute([star_db.loc[star_index, 'iso_mass_err1'],
+                                          star_db.loc[star_index, 'iso_mass_err2']]))
             props.loc[props_index, 'Mstar'] = Mstar
-            # Save stellar mass uncertainty.
-            uMstar = np.mean(np.absolute[star_db.loc[star_index, 'iso_mass_err1'],
-                                         star_db.loc[star_index, 'iso_mass_err2']])
             props.loc[props_index, 'uMstar'] = uMstar
 
             #Make a fake posterior for stellar mass.
