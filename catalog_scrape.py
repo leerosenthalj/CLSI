@@ -20,6 +20,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
     nplanets = []
 
     for star in starlist:
+        print(star)
         params = dict()
         params['name'] = star
         try:
