@@ -146,20 +146,20 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                                 chains['per{}'.format(n)], masschain,
                                 echain, Msini_units='jupiter')
                             props.loc[index, 'M{}_med'.format(n)] = \
-                                np.median(Mchain)
+                                np.median(Mchain[~np.isnan(Mchain)])
                             props.loc[index, 'M{}_minus'.format(n)] = \
-                                np.percentile(Mchain, 15.9)
+                                np.percentile(Mchain[~np.isnan(Mchain)], 15.9)
                             props.loc[index, 'M{}_plus'.format(n)] = \
-                                np.percentile(Mchain, 84.1)
+                                np.percentile(Mchain[~np.isnan(Mchain)], 84.1)
 
                             achain = radvel.utils.semi_major_axis(chains['per{}'.format(n)],
                                                                   masschain)
                             props.loc[index, 'a{}_med'.format(n)] = \
-                                np.median(achain)
+                                np.median(achain[~np.isnan(achain)])
                             props.loc[index, 'a{}_minus'.format(n)] = \
-                                np.percentile(achain, 15.9)
+                                np.percentile(achain[~np.isnan(achain)], 15.9)
                             props.loc[index, 'a{}_plus'.format(n)] = \
-                                np.percentile(achain, 84.1)
+                                np.percentile(achain[~np.isnan(achain)], 84.1)
 
             props.to_csv('system_props.csv')
     return props
