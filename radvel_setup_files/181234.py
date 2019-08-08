@@ -3,6 +3,7 @@ import pdb
 import pandas as pd
 import numpy as np
 import radvel
+import cpsutils
 from cpsutils import io
 
 import rvsearch
