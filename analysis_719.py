@@ -6,6 +6,56 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import radvel
 
+def trends(props_filename, save=True):
+    props = pd.read_csv(props_filename)
+
+    num_stars = len(props)
+    starnames  = props['name']
+    mstar = np.asarray(props.Mstar)
+    dvdt       = np.asarray(props.dvdt)#[~np.isnan(props.dvdt)]
+    dvdt_med   = np.asarray(props.dvdt_med)#[~np.isnan(props.dvdt)]
+    dvdt_minus = np.asarray(props.dvdt_minus)#[~np.isnan(props.dvdt)]
+    dvdt_plus  = np.asarray(props.dvdt_plus)#[~np.isnan(props.dvdt)]
+    curv       = np.asarray(props.curv)#[~np.isnan(props.dvdt)]
+    curv_med   = np.asarray(props.curv_med)#[~np.isnan(props.dvdt)]
+    curv_minus = np.asarray(props.curv_minus)#[~np.isnan(props.dvdt)]
+    curv_plus  = np.asarray(props.curv_plus)#[~np.isnan(props.dvdt)]
+    '''
+    print(len(dvdt))
+    istrend        = ~np.isnan(dvdt)
+    indices =
+    print(len(istrend))
+    print(istrend)
+    dvdt_sel       = dvdt[istrend]
+    dvdt_med_sel   = dvdt_med[istrend]
+    dvdt_minus_sel = dvdt_minus[istrend]
+    dvdt_plus_sel  = dvdt_plus[istrend]
+    curv_sel       = curv[istrend]
+    curv_med_sel   = curv_med[istrend]
+    curv_minus_sel = curv_minus[istrend]
+    curv_plus_sel  = curv_plus[istrend]
+    '''
+
+    trends_dict = {'hostname':starnames, 'mstar':mstar,'dvdt':dvdt,
+                   'dvdt_med':dvdt_med, 'dvdt_minus':dvdt_minus,
+                   'dvdt_plus':dvdt_plus, 'curv':curv, 'curv_med':curv_med,
+                   'curv_minus':curv_minus,'curv_plus':curv_plus}
+    trends = pd.DataFrame(trends_dict)
+    trends = trends.loc[~np.isnan(trends.dvdt)].reset_index()
+    trends.to_csv('trend_list.csv')
+
+    '''
+    dvdt       = []
+    dvdt_med   = []
+    dvdt_minus = []
+    dvdt_plus  = []
+    curv       = []
+    curv_med   = []
+    curv_minus = []
+    curv_plus  = []
+    for i in np.arange(num_stars):
+        if ~np.isnan()
+    '''
 def m_a_filter(props_filename, save=True):
     props = pd.read_csv(props_filename)
 
