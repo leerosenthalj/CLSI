@@ -172,14 +172,14 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                             props.loc[index, 'a{}_plus'.format(n)] = \
                                 np.percentile(achain[~np.isnan(achain)], 84.1)
 
-            # Save star's physical, thinned chain.
-            if fancy:
-                pchains = pd.DataFrame.from_dict(pdict)
-                # Get rid of any rows with nans due to negative mstar sample.
-                pchains = pchains.loc[~np.isnan(Mchain)]
-                # Thin the chains.
-                pchains = pchains.iloc[::10, :]
-                pchains.to_csv(star+'/{}_pchains.csv'.format(star))
+                # Save star's physical, thinned chain.
+                if fancy:
+                    pchains = pd.DataFrame.from_dict(pdict)
+                    # Get rid of any rows with nans due to negative mstar sample.
+                    pchains = pchains.loc[~np.isnan(Mchain)]
+                    # Thin the chains.
+                    pchains = pchains.iloc[::10, :]
+                    pchains.to_csv(star+'/{}_pchains.csv'.format(star))
 
             props.to_csv('system_props.csv')
     return props
