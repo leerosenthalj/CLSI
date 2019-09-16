@@ -9,9 +9,6 @@ import cpsutils
 import rvsearch
 from rvsearch import utils
 
-# radvel fit -s 120066.py -d 2019-2-19/master
-# radvel mcmc -s 120066.py -d 2019-2-19/master --maxGR 1.001 --minsteps 1000 --nsteps 10000 --minpercent 100
-
 """
 "keywords"
 """
