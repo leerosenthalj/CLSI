@@ -15,9 +15,11 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
     Note:
         If specified, compute planet masses and semi-major axes.
 
+
     """
+    nplanets   = []
     all_params = []
-    nplanets = []
+    all_stats  = []
 
     for star in starlist:
         print(star)
@@ -72,9 +74,27 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
 
         all_params.append(params)
 
+        # Collect observation stats. Nobs, baseline, median error for each inst.
+        stats = dict()
+        stats['name'] = star
+        for like in post.likelihood.like_list:
+            tel = like.telvec[0]
+            stats['Nobs_'+tel] = len(like.x)
+            stats['baseline_'+tel] = np.amax(like.x) - np.amin(like.x)
+            stats['med_err_'+tel] = np.median(like.yerr)
+        stats['Nobs'] = len(post.likelihood.x)
+        stats['baseline'] = np.amax(post.likelihood.x) - np.amin(post.likelihood.x)
+
+        all_stats.append(stats)
+
+
     # Save radvel parameters as a pandas dataframe.
-    props = pd.DataFrame(all_params)
-    props.to_csv('system_props_no_mass.csv')
+    props_db = pd.DataFrame(all_params)
+    props_db.to_csv('system_props_no_mass.csv')
+
+    all_stats_db = pd.DataFrame(all_stats)
+    all_stats_db.to_csv('observation_stats.csv')
+
 
     if star_db_name is not None:
         try:
@@ -94,7 +114,6 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
         props = merge
         props.to_csv('system_props_specmatch.csv')
         # Save median star mass, uncertainties
-        #for star in merge['name'].to_list():
         for index, row in props.iterrows():
             star = props.loc[index, 'name']
             print(star)
