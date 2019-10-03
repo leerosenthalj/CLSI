@@ -172,9 +172,9 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                             pdict['a{}'.format(n)] = achain
                             pdict['e{}'.format(n)] = echain
                             pdict['w{}'.format(n)] = wchain
-                            pdict['k{}'.format(n)] = chains['k{}'.format(n)
-                            pdict['per{}'.format(n)] = chains['per{}'.format(n)
-                            pdict['tc{}'.format(n)] = chains['tc{}'.format(n)
+                            pdict['k{}'.format(n)] = chains['k{}'.format(n)]
+                            pdict['per{}'.format(n)] = chains['per{}'.format(n)]
+                            pdict['tc{}'.format(n)] = chains['tc{}'.format(n)]
 
                             # Save physical quantiles.
                             props.loc[index, 'M{}_med'.format(n)] = \
