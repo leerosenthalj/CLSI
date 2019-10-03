@@ -89,8 +89,8 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
 
 
     # Save radvel parameters as a pandas dataframe.
-    props_db = pd.DataFrame(all_params)
-    props_db.to_csv('system_props_no_mass.csv')
+    props = pd.DataFrame(all_params)
+    props.to_csv('system_props_no_mass.csv')
 
     all_stats_db = pd.DataFrame(all_stats)
     all_stats_db.to_csv('observation_stats.csv')
@@ -136,7 +136,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                 except (RuntimeError, ValueError):
                     masschain = 1
                     print('BAD')
-                    pdb.set_trace()
+                    #pdb.set_trace()
 
             # If reading posteriors, make dictionary for physical param chains.
             if fancy:
