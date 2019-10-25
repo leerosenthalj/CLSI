@@ -185,7 +185,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                             achain = radvel.utils.semi_major_axis(chains[
                                                   'per{}'.format(n)], masschain)
                             insolchain = insolate(tempchain, radchain, achain)
-                            Teqchain   = tequil(insolchain)
+                            teqchain   = tequil(insolchain)
                             # Save physical chains.
                             # M, a, e, w, K, P, tc, tp, insol, teq
                             pdict['M{}'.format(n)]     = Mchain
@@ -228,19 +228,19 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                             props.loc[index, 'tp{}_plus'.format(n)] = \
                                 np.percentile(pdict['tp{}'.format(n)], 84.1)
 
-                            props.loc[index, 'insol{}'.format(n)] = \
-                                props.loc[index, 'insol{}_med'.format(n)]
                             props.loc[index, 'insol{}_med'.format(n)] = \
                                 np.median(insolchain[~np.isnan(insolchain))
+                            props.loc[index, 'insol{}'.format(n)] = \
+                                insolate(Tstar, Rstar, props.loc[index, 'a{}'.format(n)])
                             props.loc[index, 'insol{}_minus'.format(n)] = \
                                 np.percentile(insolchain[~np.isnan(insolchain), 15.9)
                             props.loc[index, 'insol{}_plus'.format(n)] = \
                                 np.percentile(insolchain[~np.isnan(insolchain), 84.1)
 
-                            props.loc[index, 'teq{}'.format(n)] = \
-                                props.loc[index, 'teq{}_med'.format(n)]
                             props.loc[index, 'teq{}_med'.format(n)] = \
-                                np.median(insolchain[~np.isnan(insolchain))
+                                np.median(teqchain[~np.isnan(teqchain))
+                            props.loc[index, 'teq{}'.format(n)] = \
+                                tequil(props.loc[index, 'insol{}'.format(n)])
                             props.loc[index, 'teq{}_minus'.format(n)] = \
                                 np.percentile(insolchain[~np.isnan(insolchain), 15.9)
                             props.loc[index, 'teq{}_plus'.format(n)] = \
