@@ -5,7 +5,7 @@ import pandas as pd
 import radvel
 
 def insolate(T, R, a):
-    return (T/5778)**4 * (R)**2 * (a)**-2
+    return (T/5778)**4 * R**2 * a**-2
 
 def tequil(S, alb=0.3):
     return S**-0.25 * ((1-alb)/4.)**0.25
@@ -227,6 +227,24 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                                 np.percentile(pdict['tp{}'.format(n)], 15.9)
                             props.loc[index, 'tp{}_plus'.format(n)] = \
                                 np.percentile(pdict['tp{}'.format(n)], 84.1)
+
+                            props.loc[index, 'insol{}'.format(n)] = \
+                                props.loc[index, 'insol{}_med'.format(n)]
+                            props.loc[index, 'insol{}_med'.format(n)] = \
+                                np.median(insolchain[~np.isnan(insolchain))
+                            props.loc[index, 'insol{}_minus'.format(n)] = \
+                                np.percentile(insolchain[~np.isnan(insolchain), 15.9)
+                            props.loc[index, 'insol{}_plus'.format(n)] = \
+                                np.percentile(insolchain[~np.isnan(insolchain), 84.1)
+
+                            props.loc[index, 'teq{}'.format(n)] = \
+                                props.loc[index, 'teq{}_med'.format(n)]
+                            props.loc[index, 'teq{}_med'.format(n)] = \
+                                np.median(insolchain[~np.isnan(insolchain))
+                            props.loc[index, 'teq{}_minus'.format(n)] = \
+                                np.percentile(insolchain[~np.isnan(insolchain), 15.9)
+                            props.loc[index, 'teq{}_plus'.format(n)] = \
+                                np.percentile(insolchain[~np.isnan(insolchain), 84.1)
 
                 # Save star's physical, thinned chain.
                 if fancy:
