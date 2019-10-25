@@ -4,6 +4,12 @@ import numpy as np
 import pandas as pd
 import radvel
 
+def insolate(T, R, a):
+    return (T/5778)**4 * (R)**2 * (a)**-2
+
+def tequil(S, alb=0.3):
+    return S**-0.25 * ((1-alb)/4.)**0.25
+
 def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True):
     """Take data from completed searches and compile into one dataframe.
 
@@ -48,6 +54,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             nplanets.append(num_planets)
         params['num_planets'] = num_planets
 
+        # Save quantiles for all fitting-basis parameters. per, tc, k, secossinw
         for k in post.params.keys():
             if post.params[k].vary:
                 params[k] = post.params[k].value
@@ -169,16 +176,16 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                             #insolchain = (T/5778)**4 * (R)**2 * (achain)**-2
                             #Teqchain   = (insol)**-0.25 * ((1-0.3)/4.)**0.25
                             # Save physical chains.
-                            # M, a, e, w, K, P, tp
+                            # M, a, e, w, K, P, tc
                             pdict['M{}'.format(n)] = Mchain
                             pdict['a{}'.format(n)] = achain
                             pdict['e{}'.format(n)] = echain
                             pdict['w{}'.format(n)] = wchain
+                            pdict['tp{}'.format(n)] = chains['tc{}'.format(n)]
                             pdict['k{}'.format(n)] = chains['k{}'.format(n)]
                             pdict['per{}'.format(n)] = chains['per{}'.format(n)]
-                            pdict['tp{}'.format(n)] = chains['tp{}'.format(n)]
-
-                            # Save physical quantiles.
+                            pdict['tc{}'.format(n)] = chains['tc{}'.format(n)]
+                            # Save fitting and physical quantiles.
                             props.loc[index, 'M{}_med'.format(n)] = \
                                 np.median(Mchain[~np.isnan(Mchain)])
                             props.loc[index, 'M{}_minus'.format(n)] = \
@@ -192,6 +199,20 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                                 np.percentile(achain[~np.isnan(achain)], 15.9)
                             props.loc[index, 'a{}_plus'.format(n)] = \
                                 np.percentile(achain[~np.isnan(achain)], 84.1)
+
+                            props.loc[index, 'w{}_med'.format(n)] = \
+                                np.median(pdict['w{}'.format(n)])
+                            props.loc[index, 'w{}_minus'.format(n)] = \
+                                np.percentile(pdict['w{}'.format(n)], 15.9)
+                            props.loc[index, 'w{}_plus'.format(n)] = \
+                                np.percentile(pdict['w{}'.format(n)], 84.1)
+
+                            props.loc[index, 'tp{}_med'.format(n)] = \
+                                np.median(pdict['tp{}'.format(n)])
+                            props.loc[index, 'tp{}_minus'.format(n)] = \
+                                np.percentile(pdict['tp{}'.format(n)], 15.9)
+                            props.loc[index, 'tp{}_plus'.format(n)] = \
+                                np.percentile(pdict['tp{}'.format(n)], 84.1)
 
                 # Save star's physical, thinned chain.
                 if fancy:
