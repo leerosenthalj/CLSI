@@ -125,10 +125,17 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             star = props.loc[index, 'name']
             print(star)
 
-            # Save stellar mass and error, to be used in mass and orbital calculations.
-            Mstar = props.loc[index, 'iso_mass']
+            # Save stellar params and errs, to be used in derived calculations.
+            # IMPORTANT: STANDARDIZE AFTER MERGING SYNTH AND EMP PARAMS. 10/25
+            Mstar  = props.loc[index, 'iso_mass']
             uMstar = np.mean(np.absolute([props.loc[index, 'iso_mass_err1'],
                                           props.loc[index, 'iso_mass_err2']]))
+            Rstar  = props.loc[index, 'iso_radius']
+            uRstar = np.mean(np.absolute([props.loc[index, 'iso_radius_err1'],
+                                          props.loc[index, 'iso_radius_err2']]))
+            Tstar  = props.loc[index, 'teff_emp']
+            uTstar = props.loc[index, 'teff_err_emp']
+
             props.loc[index, 'Mstar']  = Mstar
             props.loc[index, 'uMstar'] = uMstar
 
@@ -140,8 +147,12 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                     chains = 'empty'
                 try:
                     masschain = np.random.normal(Mstar, uMstar, len(chains))
+                    radchain  = np.random.normal(Rstar, uRstar, len(chains))
+                    tempchain = np.random.normal(Tstar, uTstar, len(chains))
                 except (RuntimeError, ValueError):
-                    masschain = 1
+                    masschain = 1.
+                    radchain  = 1.
+                    tempchain = 5700.
                     print('BAD')
                     #pdb.set_trace()
 
@@ -173,18 +184,21 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                                 echain, Msini_units='jupiter')
                             achain = radvel.utils.semi_major_axis(chains[
                                                   'per{}'.format(n)], masschain)
-                            #insolchain = (T/5778)**4 * (R)**2 * (achain)**-2
-                            #Teqchain   = (insol)**-0.25 * ((1-0.3)/4.)**0.25
+                            insolchain = insolate(tempchain, radchain, achain)
+                            Teqchain   = tequil(insolchain)
                             # Save physical chains.
-                            # M, a, e, w, K, P, tc
-                            pdict['M{}'.format(n)] = Mchain
-                            pdict['a{}'.format(n)] = achain
-                            pdict['e{}'.format(n)] = echain
-                            pdict['w{}'.format(n)] = wchain
-                            pdict['tp{}'.format(n)] = chains['tc{}'.format(n)]
-                            pdict['k{}'.format(n)] = chains['k{}'.format(n)]
-                            pdict['per{}'.format(n)] = chains['per{}'.format(n)]
-                            pdict['tc{}'.format(n)] = chains['tc{}'.format(n)]
+                            # M, a, e, w, K, P, tc, tp, insol, teq
+                            pdict['M{}'.format(n)]     = Mchain
+                            pdict['a{}'.format(n)]     = achain
+                            pdict['e{}'.format(n)]     = echain
+                            pdict['w{}'.format(n)]     = wchain
+                            pdict['tp{}'.format(n)]    = chains['tc{}'.format(n)]
+                            pdict['k{}'.format(n)]     = chains['k{}'.format(n)]
+                            pdict['per{}'.format(n)]   = chains['per{}'.format(n)]
+                            pdict['tc{}'.format(n)]    = chains['tc{}'.format(n)]
+                            pdict['insol{}'.format(n)] = insolchain
+                            pdict['teq{}'.format(n)]   = Teqchain
+
                             # Save fitting and physical quantiles.
                             props.loc[index, 'M{}_med'.format(n)] = \
                                 np.median(Mchain[~np.isnan(Mchain)])
