@@ -6,20 +6,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import radvel
 
-def make_trends_list(props_filename, save=True):
+def make_trend_list(props_filename, save=True):
     props = pd.read_csv(props_filename)
 
     num_stars = len(props)
     starnames  = props['name']
     mstar = np.asarray(props.Mstar)
-    dvdt       = np.asarray(props.dvdt)#[~np.isnan(props.dvdt)]
-    dvdt_med   = np.asarray(props.dvdt_med)#[~np.isnan(props.dvdt)]
-    dvdt_minus = np.asarray(props.dvdt_minus)#[~np.isnan(props.dvdt)]
-    dvdt_plus  = np.asarray(props.dvdt_plus)#[~np.isnan(props.dvdt)]
-    curv       = np.asarray(props.curv)#[~np.isnan(props.dvdt)]
-    curv_med   = np.asarray(props.curv_med)#[~np.isnan(props.dvdt)]
-    curv_minus = np.asarray(props.curv_minus)#[~np.isnan(props.dvdt)]
-    curv_plus  = np.asarray(props.curv_plus)#[~np.isnan(props.dvdt)]
+    dvdt       = np.asarray(props.dvdt)
+    dvdt_med   = np.asarray(props.dvdt_med)
+    dvdt_minus = np.asarray(props.dvdt_minus)
+    dvdt_plus  = np.asarray(props.dvdt_plus)
+    curv       = np.asarray(props.curv)
+    curv_med   = np.asarray(props.curv_med)
+    curv_minus = np.asarray(props.curv_minus)
+    curv_plus  = np.asarray(props.curv_plus)
 
     trends_dict = {'hostname':starnames, 'mstar':mstar,'dvdt':dvdt,
                    'dvdt_med':dvdt_med, 'dvdt_minus':dvdt_minus,
