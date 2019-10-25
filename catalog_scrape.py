@@ -166,6 +166,8 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                                 echain, Msini_units='jupiter')
                             achain = radvel.utils.semi_major_axis(chains[
                                                   'per{}'.format(n)], masschain)
+                            #insolchain = (T/5778)**4 * (R)**2 * (achain)**-2
+                            #Teqchain   = (insol)**-0.25 * ((1-0.3)/4.)**0.25
                             # Save physical chains.
                             # M, a, e, w, K, P, tp
                             pdict['M{}'.format(n)] = Mchain
