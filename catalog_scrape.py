@@ -54,7 +54,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             nplanets.append(num_planets)
         params['num_planets'] = num_planets
 
-        # Save quantiles for all fitting-basis parameters. per, tc, k, secossinw
+        # Save quantiles and modes for all fitting-basis parameters, and for e.
         for k in post.params.keys():
             if post.params[k].vary:
                 params[k] = post.params[k].value
@@ -63,6 +63,9 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                         params[k+'_med']   = np.median(chains[k])
                         params[k+'_minus'] = np.percentile(chains[k], 15.9)
                         params[k+'_plus']  = np.percentile(chains[k], 84.1)
+                        hist, bin_edges    = np.histogram(chains[k], bins=100,
+                                                          range=(0,1))
+                        params[k+'_mode'] = bin_edges[np.argmax(hist)]
         if num_planets > 0:
             for n in np.arange(1, num_planets+1):
                 ekey = 'e{}'.format(n)
@@ -78,7 +81,9 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                         params[ekey+'_med']   = np.median(echain)
                         params[ekey+'_minus'] = np.percentile(echain, 15.9)
                         params[ekey+'_plus']  = np.percentile(echain, 84.1)
-
+                        hist, bin_edges       = np.histogram(echain, bins=100,
+                                                          range=(0,1))
+                        params[ekey+'_mode'] = bin_edges[np.argmax(hist)]
         all_params.append(params)
 
         # Collect observation stats. Nobs, baseline, median error for each inst.
@@ -199,7 +204,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                             pdict['insol{}'.format(n)] = insolchain
                             pdict['teq{}'.format(n)]   = Teqchain
 
-                            # Save fitting and physical quantiles.
+                            # Save fitting and physical quantiles and modes.
                             props.loc[index, 'M{}_med'.format(n)] = \
                                 np.median(Mchain[~np.isnan(Mchain)])
                             props.loc[index, 'M{}_minus'.format(n)] = \
