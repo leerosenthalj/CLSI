@@ -63,8 +63,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                         params[k+'_med']   = np.median(chains[k])
                         params[k+'_minus'] = np.percentile(chains[k], 15.9)
                         params[k+'_plus']  = np.percentile(chains[k], 84.1)
-                        hist, bin_edges    = np.histogram(chains[k], bins=100,
-                                                          range=(0,1))
+                        hist, bin_edges    = np.histogram(chains[k], bins=500)
                         params[k+'_mode'] = bin_edges[np.argmax(hist)]
         if num_planets > 0:
             for n in np.arange(1, num_planets+1):
