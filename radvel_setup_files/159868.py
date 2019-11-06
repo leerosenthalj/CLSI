@@ -10,17 +10,19 @@ from rvsearch import utils
 
 starname = 'HD159868'
 nplanets = 2
-instnames = ['j', 'AAT']
+instnames = ['j']#, 'AAT']
 ntels = len(instnames)
 fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 2450000.
 
 # load in data
-data = utils.read_from_csv('./merged_datasets/159868_keck_aat.csv')
+#data = utils.read_from_csv('./merged_datasets/159868_keck_aat.csv')
+data = cpsutils.io.loadcps('159868', hires_rk=True, hires_rj=True,
+                           ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
 time_base = np.median(data['time'])
-#data['tel'] = data['tel'].str.decode('utf-8')
+data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')
@@ -49,11 +51,11 @@ def initialize_params():
 params = initialize_params()
 params['gamma_j'] = radvel.Parameter(value=-1.90, vary=False, linear=True)
 params['jit_j'] = radvel.Parameter(value=4.2)
-params['gamma_AAT'] = radvel.Parameter(value=6.87, vary=False, linear=True)
-params['jit_AAT'] = radvel.Parameter(value=7.37)
+#params['gamma_AAT'] = radvel.Parameter(value=6.87, vary=False, linear=True)
+#params['jit_AAT'] = radvel.Parameter(value=7.37)
 
 priors = [
     radvel.prior.EccentricityPrior( nplanets ), # Keeps eccentricity < 1
-    radvel.prior.HardBounds('jit_j', 0.0, 10.0),
-    radvel.prior.HardBounds('jit_AAT', 0.0, 10.0)
+    radvel.prior.HardBounds('jit_j', 0.0, 10.0)
 ]
+#radvel.prior.HardBounds('jit_AAT', 0.0, 10.0)
