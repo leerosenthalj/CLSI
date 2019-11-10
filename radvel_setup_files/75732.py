@@ -38,10 +38,10 @@ anybasis_params['e5'] = radvel.Parameter(value=0.320000)
 anybasis_params['w5'] = radvel.Parameter(value=2.426008)
 anybasis_params['k5'] = radvel.Parameter(value=6.200000)
 
-'''
-time_base = 2455802.329713
 anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
 anybasis_params['curv'] = radvel.Parameter(value=0.0)
+'''
+time_base = 2455802.329713
 data = pd.read_csv('/data/radvel/input_dir/75732/data/all_data/all_data.csv',
                    dtype={'time': np.float64, 'mnvel': np.float64, 'err': np.float64, 'tel': str})
 bin_t, bin_vel, bin_err, bin_tel = radvel.utils.bintels(data['time'].values, data['mnvel'].values, data['errvel'].values, data['tel'].values, binsize=0.1)
