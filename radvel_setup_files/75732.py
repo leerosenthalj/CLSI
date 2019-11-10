@@ -40,17 +40,7 @@ anybasis_params['k5'] = radvel.Parameter(value=6.200000)
 
 anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
 anybasis_params['curv'] = radvel.Parameter(value=0.0)
-'''
-time_base = 2455802.329713
-data = pd.read_csv('/data/radvel/input_dir/75732/data/all_data/all_data.csv',
-                   dtype={'time': np.float64, 'mnvel': np.float64, 'err': np.float64, 'tel': str})
-bin_t, bin_vel, bin_err, bin_tel = radvel.utils.bintels(data['time'].values, data['mnvel'].values, data['errvel'].values, data['tel'].values, binsize=0.1)
-data = pd.DataFrame([], columns=['time', 'mnvel', 'errvel', 'tel'])
-data['time'] = bin_t
-data['mnvel'] = bin_vel
-data['errvel'] = bin_err
-data['tel'] = bin_tel
-'''
+
 data = cpsutils.io.loadcps('75732', hires_rk=True, hires_rj=True, lick=True,
                            ctslim=3000, binsize=0.5)
 data['time'] = data['jd']
@@ -100,13 +90,12 @@ mod.params['jit_lick'].vary = True
 
 priors = [
           radvel.prior.EccentricityPrior(nplanets),
-          radvel.prior.PositiveKPrior(nplanets),
-          radvel.prior.Gaussian('per1', 14.648000, 0.0009),
-          radvel.prior.Gaussian('per2', 44.380000, 0.007),
-          radvel.prior.Gaussian('per3', 4909.000000, 30),
-          radvel.prior.Gaussian('per4', 0.737000, 3e-06),
-          radvel.prior.Gaussian('per5', 261.200000, 0.4),
-          radvel.prior.UserDefinedPrior(['gamma_j', 'gamma_k'], utils.GaussianDiffFunc, 'Gaussian Prior on HIRES offset')
-         ]
+          radvel.prior.PositiveKPrior(nplanets)]#,
+          #radvel.prior.Gaussian('per1', 14.648000, 0.0009),
+          #radvel.prior.Gaussian('per2', 44.380000, 0.007),
+          #radvel.prior.Gaussian('per3', 4909.000000, 30),
+          #radvel.prior.Gaussian('per4', 0.737000, 3e-06),
+          #radvel.prior.Gaussian('per5', 261.200000, 0.4),
+          #radvel.prior.UserDefinedPrior(['gamma_j', 'gamma_k'], utils.GaussianDiffFunc, 'Gaussian Prior on HIRES offset')]
 
 stellar = dict(mstar=0.9859, mstar_err=0.0405)
