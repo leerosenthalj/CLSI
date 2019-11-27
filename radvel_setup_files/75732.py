@@ -42,7 +42,7 @@ anybasis_params['k5'] = radvel.Parameter(value=6.200000)
 anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
 anybasis_params['curv'] = radvel.Parameter(value=0.0)
 
-data = cpsutils.io.loadcps('75732', hires_rk=True, hires_rj=True, lick=True,
+data = cpsutils.io.loadcps('75732', hires_rk=True, hires_rj=True, lick=True, apf=True,
                            ctslim=3000, binsize=0.5)
 data['time'] = data['jd']
 time_base = np.median(data['time'])
