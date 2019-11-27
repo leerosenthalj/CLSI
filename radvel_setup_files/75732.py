@@ -2,6 +2,7 @@ import radvel
 import numpy as np
 import pandas as pd
 from rvsearch import utils
+import cpsutils.io
 
 starname = '75732'
 nplanets = 5
