@@ -40,8 +40,8 @@ data_folder = './merged_datasets/'
 data = utils.read_from_csv(data_folder+'pi_with_mcd.csv', binsize=0.5)
 data['time'] = data['jd']
 '''
-data_cps = cpsutils.io.loadcps('120066', hires_rk=True, hires_rj=True,
-                               apf=True, ctslim=3000, binsize=0.5)
+data = cpsutils.io.loadcps('120066', hires_rk=True, hires_rj=True,
+                           apf=True, ctslim=3000, binsize=0.5)
 data['time'] = data['jd']
 data['tel'] = data['tel'].str.decode('utf-8')
 time_base = np.median(data.time.values)
