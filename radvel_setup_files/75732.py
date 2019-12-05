@@ -13,7 +13,7 @@ planet_letters = {1: 'b', 2: 'c', 3: 'd', 4: 'e', 5: 'f', }
 # Define prior centers (initial guesses) in a basis of your choice (need not be in the fitting basis)
 anybasis_params = radvel.Parameters(nplanets, basis='per tc e w k',
                                     planet_letters=planet_letters)
-                                    
+
 anybasis_params['per1'] = radvel.Parameter(value=14.648000)
 anybasis_params['tc1'] = radvel.Parameter(value=2455805.465756)
 anybasis_params['e1'] = radvel.Parameter(value=0)

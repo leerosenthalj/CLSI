@@ -39,7 +39,8 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             continue
         if fancy:
             try:
-                chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+                # Read in only last 10,000 steps.
+                chains = pd.read_csv(star+'/chains.csv.tar.bz2')[-10000:]
             except (RuntimeError, FileNotFoundError):
                 chains = 'empty'
 
@@ -146,7 +147,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             #Make a fake posterior for stellar mass.
             if fancy:
                 try:
-                    chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+                    chains = pd.read_csv(star+'/chains.csv.tar.bz2')[-10000:]
                 except (RuntimeError, FileNotFoundError):
                     chains = 'empty'
                 try:
@@ -255,8 +256,8 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                     pchains = pd.DataFrame.from_dict(pdict)
                     # Get rid of any rows with nans due to negative mstar sample.
                     pchains = pchains.loc[~np.isnan(Mchain)]
-                    # Thin the chains.
-                    pchains = pchains.iloc[::10, :]
+                    # Thin the chains. Not doing for now, since only saving final steps.
+                    #pchains = pchains.iloc[::10, :]
                     pchains.to_csv(star+'/{}_pchains.csv'.format(star))
 
             props.to_csv('system_props.csv')
