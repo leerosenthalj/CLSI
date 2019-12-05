@@ -32,10 +32,10 @@ anybasis_params['e3'] = radvel.Parameter(value=0)
 anybasis_params['w3'] = radvel.Parameter(value=4.433136)
 anybasis_params['k3'] = radvel.Parameter(value=45.200000)
 
-anybasis_params['per4'] = radvel.Parameter(value=0.737000)
+anybasis_params['per4'] = radvel.Parameter(value=0.736539)
 anybasis_params['tc4'] = radvel.Parameter(value=2455802.360600)
-anybasis_params['e4'] = radvel.Parameter(value=0)
-anybasis_params['w4'] = radvel.Parameter(value=1.570796)
+anybasis_params['e4'] = radvel.Parameter(value=0.)
+anybasis_params['w4'] = radvel.Parameter(value=0.)
 anybasis_params['k4'] = radvel.Parameter(value=6.000000)
 
 anybasis_params['per5'] = radvel.Parameter(value=261.200000)
@@ -89,8 +89,8 @@ mod.params['sesinw4'].vary = True
 
 mod.params['per4'].vary = True
 mod.params['tc4'].vary = True
-mod.params['secosw4'].vary = True
-mod.params['sesinw4'].vary = True
+mod.params['secosw4'].vary = False
+mod.params['sesinw4'].vary = False
 
 mod.params['dvdt'].vary = False
 mod.params['curv'].vary = False
@@ -102,12 +102,10 @@ mod.params['jit_lick'].vary = True
 priors = [
           radvel.prior.EccentricityPrior(nplanets),
           radvel.prior.PositiveKPrior(nplanets),
-          radvel.prior.Gaussian('per4', 0.737000, 3e-06)]
-          #radvel.prior.Gaussian('per1', 14.648000, 0.0009),
-          #radvel.prior.Gaussian('per2', 44.380000, 0.007),
-          #radvel.prior.Gaussian('per3', 4909.000000, 30),
-          #radvel.prior.Gaussian('per5', 261.200000, 0.4),
-          #]
+          radvel.prior.Gaussian('per4', 0.736539, 3e-06),
+          radvel.prior.Gaussian('sesinw4', 0., 3e-06),
+          radvel.prior.Gaussian('secosw4', 0., 3e-06)
+          ]
 
 #radvel.prior.UserDefinedPrior(['gamma_j', 'gamma_k'], utils.GaussianDiffFunc, 'Gaussian Prior on HIRES offset')
 stellar = dict(mstar=0.9859, mstar_err=0.0405)
