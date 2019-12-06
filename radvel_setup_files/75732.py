@@ -105,7 +105,7 @@ priors = [
           radvel.prior.Gaussian('per5', 0.736539, 3e-06),
           radvel.prior.Gaussian('sesinw5', 0., 3e-06),
           radvel.prior.Gaussian('secosw5', 0., 3e-06)
-          #]
+          ]
 
 #radvel.prior.UserDefinedPrior(['gamma_j', 'gamma_k'], utils.GaussianDiffFunc, 'Gaussian Prior on HIRES offset')
 stellar = dict(mstar=0.9859, mstar_err=0.0405)
