@@ -40,16 +40,16 @@ baseline = np.max(data.time.values) - np.min(data.time.values)
 def initialize_params():
     params = radvel.Parameters(2,basis='per tp e w k')
     params['per1'] = radvel.Parameter(value=1236.06)
-    params['tp1'] = radvel.Parameter(value=2456190.13)
-    params['e1'] = radvel.Parameter(value=0.36)
-    params['w1'] = radvel.Parameter(value=-1.875)
-    params['k1'] = radvel.Parameter(value=4.05)
+    params['tp1']  = radvel.Parameter(value=2456190.13)
+    params['e1']   = radvel.Parameter(value=0.36)
+    params['w1']   = radvel.Parameter(value=-1.875)
+    params['k1']   = radvel.Parameter(value=4.05)
 
-    params['per2'] = radvel.Parameter(value=4611.)
-    params['tp2'] = radvel.Parameter(value=2455700.)
-    params['e2'] = radvel.Parameter(value=0.1)
-    params['w2'] = radvel.Parameter(value=0.)
-    params['k2'] = radvel.Parameter(value=4.)
+    params['per2'] = radvel.Parameter(value=4551.)
+    params['tp2']  = radvel.Parameter(value=2456197.)
+    params['e2']   = radvel.Parameter(value=0.)
+    params['w2']   = radvel.Parameter(value=0.)
+    params['k2']   = radvel.Parameter(value=2.)
 
     params['dvdt'] = radvel.Parameter(value=0, vary=False)
     params['curv'] = radvel.Parameter(value=0, vary=False)
@@ -70,5 +70,6 @@ priors = [
     radvel.prior.EccentricityPrior( nplanets ), # Keeps eccentricity < 1
     radvel.prior.PositiveKPrior( nplanets ),
     radvel.prior.HardBounds('jit_k', 0.0, 10.0),
-    radvel.prior.HardBounds('jit_j', 0.0, 10.0)
-]
+    radvel.prior.HardBounds('jit_j', 0.0, 10.0),
+    radvel.prior.Gaussian('per2', 4383., 200.)
+    ]
