@@ -40,7 +40,9 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
         if fancy:
             try:
                 # Read in only last 10,000 steps.
-                chains = pd.read_csv(star+'/chains.csv.tar.bz2')[-10000:]
+                chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+                if len(chains) > 10**4:
+                    chains = chains[-10000:]
             except (RuntimeError, FileNotFoundError):
                 chains = 'empty'
 
@@ -147,7 +149,9 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             #Make a fake posterior for stellar mass.
             if fancy:
                 try:
-                    chains = pd.read_csv(star+'/chains.csv.tar.bz2')[-10000:]
+                    chains = pd.read_csv(star+'/chains.csv.tar.bz2')
+                    if len(chains) > 10**4:
+                        chains = chains[-10000:]
                 except (RuntimeError, FileNotFoundError):
                     chains = 'empty'
                 try:
