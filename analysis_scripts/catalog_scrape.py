@@ -165,9 +165,9 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                     radchain  = np.random.normal(Rstar, uRstar, len(chains))
                     tempchain = np.random.normal(Tstar, uTstar, len(chains))
                 except (RuntimeError, ValueError):
-                    masschain = 1.
-                    radchain  = 1.
-                    tempchain = 5700.
+                    masschain = np.random.normal(1., 0.1, len(chains))
+                    radchain  = np.random.normal(1., 0.1, len(chains))
+                    tempchain = np.random.normal(5700., 200., len(chains))
                     print('BAD')
 
             # If reading posteriors, make dictionary for physical param chains.
