@@ -243,22 +243,22 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                                 np.percentile(pdict['tp{}'.format(n)], 84.1)
 
                             props.loc[index, 'insol{}_med'.format(n)] = \
-                                np.median(insolchain[~np.isnan(insolchain))
+                                np.median(insolchain[~np.isnan(insolchain)])
                             props.loc[index, 'insol{}'.format(n)] = \
                                 insolate(Tstar, Rstar, props.loc[index, 'a{}'.format(n)])
                             props.loc[index, 'insol{}_minus'.format(n)] = \
-                                np.percentile(insolchain[~np.isnan(insolchain), 15.9)
+                                np.percentile(insolchain[~np.isnan(insolchain)], 15.9)
                             props.loc[index, 'insol{}_plus'.format(n)] = \
-                                np.percentile(insolchain[~np.isnan(insolchain), 84.1)
+                                np.percentile(insolchain[~np.isnan(insolchain)], 84.1)
 
                             props.loc[index, 'teq{}_med'.format(n)] = \
-                                np.median(teqchain[~np.isnan(teqchain))
+                                np.median(teqchain[~np.isnan(teqchain)])
                             props.loc[index, 'teq{}'.format(n)] = \
                                 tequil(props.loc[index, 'insol{}'.format(n)])
                             props.loc[index, 'teq{}_minus'.format(n)] = \
-                                np.percentile(insolchain[~np.isnan(insolchain), 15.9)
+                                np.percentile(insolchain[~np.isnan(insolchain)], 15.9)
                             props.loc[index, 'teq{}_plus'.format(n)] = \
-                                np.percentile(insolchain[~np.isnan(insolchain), 84.1)
+                                np.percentile(insolchain[~np.isnan(insolchain)], 84.1)
 
                 # Save star's physical, thinned chain.
                 if fancy:
