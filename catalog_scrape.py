@@ -21,7 +21,6 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
     Note:
         If specified, compute planet masses and semi-major axes.
 
-
     """
     nplanets   = []
     all_params = []
@@ -41,8 +40,8 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             try:
                 # Read in only last 10,000 steps.
                 chains = pd.read_csv(star+'/chains.csv.tar.bz2')
-                if len(chains) > 10**4:
-                    chains = chains[-10000:]
+                if len(chains) > 5*10**4:
+                    chains = chains[-50000:]
             except (RuntimeError, FileNotFoundError):
                 chains = 'empty'
 
@@ -84,8 +83,15 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                         params[ekey+'_minus'] = np.percentile(echain, 15.9)
                         params[ekey+'_plus']  = np.percentile(echain, 84.1)
                         hist, bin_edges       = np.histogram(echain, bins=100,
-                                                          range=(0, 1))
+                                                             range=(0, 1))
                         params[ekey+'_mode'] = bin_edges[np.argmax(hist)]
+                        params[ekey+'_68'] = np.percentile(echain, 68.2)
+                        std = 0.5*(params[ekey+'_plus'] - params[ekey+'_minus'])
+                        if params[ekey+'_med'] > 2*std:
+                            params[ekey+'_stat'] = 'e'
+                        else:
+                            params[ekey+'_stat'] = 'c'
+
         all_params.append(params)
 
         # Collect observation stats. Nobs, baseline, median error for each inst.
@@ -150,8 +156,8 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             if fancy:
                 try:
                     chains = pd.read_csv(star+'/chains.csv.tar.bz2')
-                    if len(chains) > 10**4:
-                        chains = chains[-10000:]
+                    if len(chains) > 5*10**4:
+                        chains = chains[-50000:]
                 except (RuntimeError, FileNotFoundError):
                     chains = 'empty'
                 try:
@@ -163,7 +169,6 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                     radchain  = 1.
                     tempchain = 5700.
                     print('BAD')
-                    #pdb.set_trace()
 
             # If reading posteriors, make dictionary for physical param chains.
             if fancy:
