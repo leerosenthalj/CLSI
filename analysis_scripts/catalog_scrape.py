@@ -160,11 +160,11 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                         chains = chains[-50000:]
                 except (RuntimeError, FileNotFoundError):
                     chains = 'empty'
-                if ~np.isnan(Mstar):
+                if ~np.isnan(Mstar): #try:
                     masschain = np.random.normal(Mstar, uMstar, len(chains))
                     radchain  = np.random.normal(Rstar, uRstar, len(chains))
                     tempchain = np.random.normal(Tstar, uTstar, len(chains))
-                except (RuntimeError, ValueError):
+                else: #except (RuntimeError, ValueError):
                     masschain = np.random.normal(1., 0.05, len(chains))
                     radchain  = np.random.normal(1., 0.05, len(chains))
                     tempchain = np.random.normal(5700., 100., len(chains))
