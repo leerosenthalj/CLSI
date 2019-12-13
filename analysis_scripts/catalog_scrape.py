@@ -211,7 +211,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                             pdict['per{}'.format(n)]   = chains['per{}'.format(n)]
                             pdict['tc{}'.format(n)]    = chains['tc{}'.format(n)]
                             pdict['insol{}'.format(n)] = insolchain
-                            pdict['teq{}'.format(n)]   = Teqchain
+                            pdict['teq{}'.format(n)]   = teqchain
 
                             # Save fitting and physical quantiles and modes.
                             props.loc[index, 'M{}_med'.format(n)] = \
