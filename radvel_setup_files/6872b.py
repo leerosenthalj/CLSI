@@ -27,11 +27,11 @@ data['tel'] = data['tel'].str.decode('utf-8')
 def initialize_params():
     params = radvel.Parameters(nplanets, basis='per tp e w k')
 
-    params['per1'] = radvel.Parameter(value=15702.3)#11136.6)
-    params['tp1'] = radvel.Parameter(value=2457218.85)#7135.72)
-    params['k1'] = radvel.Parameter(value=5712.63)#7044.13)
-    params['e1'] = radvel.Parameter(value=0.6605)#0.6936)
-    params['w1'] = radvel.Parameter(value=-2.628)#-2.701)
+    params['per1'] = radvel.Parameter(value=18882.)#8729.5)
+    params['tp1'] = radvel.Parameter(value=2457296.2)#2457218.85)
+    params['k1'] = radvel.Parameter(value=5481.5)#4756.)
+    params['e1'] = radvel.Parameter(value=0.66)#0.54)
+    params['w1'] = radvel.Parameter(value=-2.59)#-2.628)
 
     params['dvdt'] = radvel.Parameter(value=0, vary=False)
     params['curv'] = radvel.Parameter(value=0, vary=False)
