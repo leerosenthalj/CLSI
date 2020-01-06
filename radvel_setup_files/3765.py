@@ -38,7 +38,7 @@ data['tel'] = data['tel'].str.decode('utf-8')
 baseline = np.max(data.time.values) - np.min(data.time.values)
 
 def initialize_params():
-    params = radvel.Parameters(1, basis='per tp e w k')
+    params = radvel.Parameters(nplanets, basis='per tp e w k')
     params['per1'] = radvel.Parameter(value=1236.06)
     params['tp1']  = radvel.Parameter(value=2456190.13)
     params['e1']   = radvel.Parameter(value=0.36)
