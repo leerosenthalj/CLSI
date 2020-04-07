@@ -2,6 +2,10 @@ import radvel
 import numpy as np
 import pandas as pd
 
+import cpsutils
+import rvsearch
+from rvsearch import utils
+
 """
 "keywords"
 """
