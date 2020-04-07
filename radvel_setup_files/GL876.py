@@ -16,7 +16,7 @@ bjd0 = 0.
 planet_letters = {1: 'b', 2: 'c', 3: 'd', 4: 'e'}
 
 # Define prior centers (initial guesses) in a basis of your choice (need not be in the fitting basis)
-anybasis_params = radvel.Parameters(nplanets, basis='per tc e w k', 
+anybasis_params = radvel.Parameters(nplanets, basis='per tc e w k',
                                     planet_letters=planet_letters) # initialize Parameters object
 anybasis_params['per1'] = radvel.Parameter(value=61.116600)
 anybasis_params['tc1'] = radvel.Parameter(value=2453056.9)
@@ -42,6 +42,7 @@ anybasis_params['k3'] = radvel.Parameter(value=6.560000)
 time_base = 2453012.188702
 anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
 anybasis_params['curv'] = radvel.Parameter(value=0.0)
+'''
 data = pd.read_csv('setup_data/gl876_all_data.csv',
                    dtype={'time': np.float64, 'mnvel': np.float64, 'err': np.float64, 'tel': str})
 bin_t, bin_vel, bin_err, bin_tel = radvel.utils.bintels(data['time'].values, data['mnvel'].values, data['errvel'].values, data['tel'].values, binsize=0.1)
@@ -50,6 +51,13 @@ data['time'] = bin_t
 data['mnvel'] = bin_vel
 data['errvel'] = bin_err
 data['tel'] = bin_tel
+'''
+data = cpsutils.io.loadcps('gl876', hires_rk=True, hires_rj=True,
+                           apf=True, ctslim=3000, binsize=0.5)
+if 'jd' in data.columns:
+    data['time'] = data['jd']
+time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 instnames = ['j', 'k']
 ntels = len(instnames)
@@ -93,6 +101,3 @@ priors = [
           radvel.prior.HardBounds('jit_j', 0.0, 50.0),
           radvel.prior.HardBounds('jit_k', 0.0, 50.0)
          ]
-
-
-
