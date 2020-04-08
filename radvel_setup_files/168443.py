@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import cpsutils
 
+from rvsearch import utils
+
 starname = 'HD 168443'
 nplanets = 2
 fitting_basis = 'per tc secosw sesinw k'
