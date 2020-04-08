@@ -29,7 +29,7 @@ stellar = dict(mstar=1.05, mstar_err=.06)
 # load in data
 #data = cpsutils.io.loadcps('hip52942a', hires_rk=True, hires_rj=True,
 #                           ctslim=3000, binsize=0.5)
-data = utils.read_from_csv('./setup_data/vst37124.csv')
+data = utils.read_from_csv('/data/user/lrosenth/legacy/CLSI/radvel_setup_files/setup_data/vsthip52942a.csv')
 data['time'] = data['jd']
 time_base = np.median(data['time'])
 #data['tel'] = data['tel'].str.decode('utf-8')
