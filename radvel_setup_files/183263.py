@@ -26,7 +26,7 @@ anybasis_params['k2'] = radvel.Parameter(value=85.4)
 
 time_base = 2456554.861281
 data = cpsutils.io.loadcps('168443', hires_rk=True, hires_rj=True,
-                           lick=True, ctslim=3000, binsize=0.5)
+                           apf=True, lick=True, ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
 time_base = np.median(data['time'])
