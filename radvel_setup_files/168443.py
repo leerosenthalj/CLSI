@@ -1,6 +1,7 @@
 import radvel
 import numpy as np
 import pandas as pd
+import cpsutils
 
 starname = 'HD 168443'
 nplanets = 2
