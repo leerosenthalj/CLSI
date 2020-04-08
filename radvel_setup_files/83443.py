@@ -34,7 +34,7 @@ data['tel'] = data['tel'].str.decode('utf-8')
 baseline = np.max(data.time.values) - np.min(data.time.values)
 
 def initialize_params():
-    params = radvel.Parameters(2,basis='per tp e w k')
+    params = radvel.Parameters(1,basis='per tp e w k')
     params['per1'] = radvel.Parameter(value=2.98566)
     params['tp1'] = radvel.Parameter(value=2452307.38)
     params['e1'] = radvel.Parameter(value=0.07852)
@@ -45,7 +45,7 @@ def initialize_params():
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
     # Convert input orbital parameters into the fitting basis
-    params = params.basis.to_any_basis(params,fitting_basis)
+    params = params.basis.to_any_basis(params, fitting_basis)
 
     return params
 
@@ -57,7 +57,7 @@ params['gamma_k'] = radvel.Parameter(value=-0., vary=False, linear=True)
 params['jit_k'] = radvel.Parameter(value=2.)
 
 priors = [
-    radvel.prior.EccentricityPrior( nplanets ), # Keeps eccentricity < 1
+    radvel.prior.EccentricityPrior( nplanets ),
     radvel.prior.PositiveKPrior( nplanets ),
     radvel.prior.HardBounds('jit_k', 0.0, 10.0),
     radvel.prior.HardBounds('jit_j', 0.0, 10.0)
