@@ -16,18 +16,15 @@ anybasis_params['tc1'] = radvel.Parameter(value=2456919.019444)
 anybasis_params['e1'] = radvel.Parameter(value=0)
 anybasis_params['w1'] = radvel.Parameter(value=4.206243)
 anybasis_params['k1'] = radvel.Parameter(value=42.400000)
+anybasis_params['dvdt'] = radvel.Parameter(value=0, vary=True)
+anybasis_params['curv'] = radvel.Parameter(value=0, vary=True)
 
-time_base = 2454221.431114
-anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
-anybasis_params['curv'] = radvel.Parameter(value=0.0)
-data = pd.read_csv('/data/radvel/input_dir/72659/data/all_data/all_data.csv',
-                   dtype={'time': np.float64, 'mnvel': np.float64, 'err': np.float64, 'tel': str})
-bin_t, bin_vel, bin_err, bin_tel = radvel.utils.bintels(data['time'].values, data['mnvel'].values, data['errvel'].values, data['tel'].values, binsize=0.1)
-data = pd.DataFrame([], columns=['time', 'mnvel', 'errvel', 'tel'])
-data['time'] = bin_t
-data['mnvel'] = bin_vel
-data['errvel'] = bin_err
-data['tel'] = bin_tel
+data = cpsutils.io.loadcps('72659', hires_rk=True, hires_rj=True,
+                           lick=True, ctslim=3000, binsize=0.5)
+if 'jd' in data.columns:
+    data['time'] = data['jd']
+time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 instnames = ['j', 'k']
 ntels = len(instnames)
