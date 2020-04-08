@@ -20,8 +20,8 @@ anybasis_params['tc1'] = radvel.Parameter(value=2456919.019444)
 anybasis_params['e1'] = radvel.Parameter(value=0)
 anybasis_params['w1'] = radvel.Parameter(value=4.206243)
 anybasis_params['k1'] = radvel.Parameter(value=42.400000)
-anybasis_params['dvdt'] = radvel.Parameter(value=0, vary=True)
-anybasis_params['curv'] = radvel.Parameter(value=0, vary=True)
+anybasis_params['dvdt'] = radvel.Parameter(value=0, vary=False)
+anybasis_params['curv'] = radvel.Parameter(value=0, vary=False)
 
 data = cpsutils.io.loadcps('72659', hires_rk=True, hires_rj=True,
                            lick=True, ctslim=3000, binsize=0.5)
@@ -44,8 +44,8 @@ mod.params['per1'].vary = True
 mod.params['tc1'].vary = True
 mod.params['secosw1'].vary = True
 mod.params['sesinw1'].vary = True
-mod.params['dvdt'].vary = True
-mod.params['curv'].vary = True
+mod.params['dvdt'].vary = False
+mod.params['curv'].vary = False
 mod.params['jit_j'].vary = True
 mod.params['jit_k'].vary = True
 
