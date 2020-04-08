@@ -29,7 +29,8 @@ stellar = dict(mstar=1.05, mstar_err=.06)
 # load in data
 data = cpsutils.io.loadcps('hip52942a', hires_rk=True, hires_rj=True,
                            ctslim=3000, binsize=0.5)
-#data = data[data['obnm'] != 'rj81.412']  # low counts, only 30k and also poor seeing
+print(data.columns)
+data = data[data['obnm'] != 'rj81.412']  # low counts, only 30k and also poor seeing
 data['time'] = data['jd']
 time_base = np.median(data['time'])
 data['tel'] = data['tel'].str.decode('utf-8')
