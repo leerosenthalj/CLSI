@@ -33,7 +33,7 @@ time_base = np.median(data['time'])
 data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
-    params = radvel.Parameters(1,basis='per tc e w k')
+    params = radvel.Parameters(1,basis='per tc secosw sesinw k')
     params['per1'] = radvel.Parameter(value=30477.33)
     params['tc1'] = radvel.Parameter(value=2451703.3)
     params['k1'] = radvel.Parameter(value=4252.6)
