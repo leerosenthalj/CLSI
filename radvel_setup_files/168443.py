@@ -23,8 +23,8 @@ anybasis_params['e2'] = radvel.Parameter(value=0)
 anybasis_params['w2'] = radvel.Parameter(value=1.127483)
 anybasis_params['k2'] = radvel.Parameter(value=299.200000)
 
-anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
-anybasis_params['curv'] = radvel.Parameter(value=0.0)
+anybasis_params['dvdt'] = radvel.Parameter(value=-3.2, vary=True)
+anybasis_params['curv'] = radvel.Parameter(value=0.0, vary=False)
 
 data = cpsutils.io.loadcps('168443', hires_rk=True, hires_rj=True,
                            apf=True, lick=True, ctslim=3000, binsize=0.5)
