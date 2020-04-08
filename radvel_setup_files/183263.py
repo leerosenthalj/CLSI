@@ -25,7 +25,7 @@ anybasis_params['w2'] = radvel.Parameter(value=-1.2)
 anybasis_params['k2'] = radvel.Parameter(value=85.4)
 
 time_base = 2456554.861281
-data = cpsutils.io.loadcps('168443', hires_rk=True, hires_rj=True,
+data = cpsutils.io.loadcps('183263', hires_rk=True, hires_rj=True,
                            apf=True, lick=True, ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
