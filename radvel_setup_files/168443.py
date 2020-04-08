@@ -27,7 +27,7 @@ anybasis_params['dvdt'] = radvel.Parameter(value=0.0)
 anybasis_params['curv'] = radvel.Parameter(value=0.0)
 
 data = cpsutils.io.loadcps('168443', hires_rk=True, hires_rj=True,
-                           lick=True, ctslim=3000, binsize=0.5)
+                           apf=True, lick=True, ctslim=3000, binsize=0.5)
 if 'jd' in data.columns:
     data['time'] = data['jd']
 time_base = np.median(data['time'])
