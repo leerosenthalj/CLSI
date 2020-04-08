@@ -26,11 +26,10 @@ bjd0 = 2450000.
 # stellar = dict(mstar=0.57, mstar_err=.02)
 
 # load in data
-data = cpsutils.io.loadcps('217165', hires_rk=True, hires_rj=True, lick=False, ctslim=3000, binsize=0.5)
-print(data.columns)
-data = data[data['obnm'] != 'rj179.332']  # low counts, only 30k and also poor seeing
-
-data['time'] = data['jd']
+data = cpsutils.io.loadcps('217165', hires_rk=True, hires_rj=True,
+                           lick=True, ctslim=3000, binsize=0.5)
+if 'jd' in data.columns:
+    data['time'] = data['jd']
 time_base = np.median(data['time'])
 data['tel'] = data['tel'].str.decode('utf-8')
 
