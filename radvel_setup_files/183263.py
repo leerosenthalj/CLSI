@@ -25,11 +25,12 @@ anybasis_params['w2'] = radvel.Parameter(value=-1.2)
 anybasis_params['k2'] = radvel.Parameter(value=85.4)
 
 time_base = 2456554.861281
-#data = cpsutils.io.loadcps('183263', hires_rk=True, hires_rj=True, apf=True,
-#                           ctslim=3000, binsize=0.5)
-data = utils.read_from_csv('./setup_data/vst183263.csv')
-data['time'] = data['jd']
-#data['tel'] = data['tel'].str.decode('utf-8')
+data = cpsutils.io.loadcps('168443', hires_rk=True, hires_rj=True,
+                           lick=True, ctslim=3000, binsize=0.5)
+if 'jd' in data.columns:
+    data['time'] = data['jd']
+time_base = np.median(data['time'])
+data['tel'] = data['tel'].str.decode('utf-8')
 
 instnames = ['apf', 'j', 'k']
 ntels = len(instnames)
