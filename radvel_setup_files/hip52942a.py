@@ -36,12 +36,12 @@ data['tel'] = data['tel'].str.decode('utf-8')
 
 def initialize_params():
     params = radvel.Parameters(1,basis='per tc e w k')
-    params['per1'] = radvel.Parameter(value=7460.0)
-    params['tc1'] = radvel.Parameter(value=2450416.0)
-    params['k1'] = radvel.Parameter(value=3101.0)
-    params['e1'] = radvel.Parameter(value=0.883)
-    params['w1'] = radvel.Parameter(value=0.1416)
-    params['dvdt'] = radvel.Parameter(value=0, vary=vary_dvdt)
+    params['per1'] = radvel.Parameter(value=30477.0)
+    params['tc1'] = radvel.Parameter(value=2451703.3)
+    params['k1'] = radvel.Parameter(value=4252.0)
+    params['secosw1'] = radvel.Parameter(value=0.23)
+    params['sesinw1'] = radvel.Parameter(value=0.65)
+    params['dvdt'] = radvel.Parameter(value=0, vary=False)
     params['curv'] = radvel.Parameter(value=0, vary=False)
 
     # Convert input orbital parameters into the fitting basis
