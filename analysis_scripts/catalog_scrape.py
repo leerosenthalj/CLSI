@@ -143,7 +143,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
             Mstar  = props.loc[index, 'mass_c']
             uMstar = props.loc[index, 'mass_err_c']
             Rstar  = props.loc[index, 'radius_c']
-            Rstar  = props.loc[index, 'radius_err_c']
+            uRstar  = props.loc[index, 'radius_err_c']
             Tstar  = props.loc[index, 'teff_c']
             uTstar = props.loc[index, 'teff_err_c']
 
