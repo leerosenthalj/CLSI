@@ -140,14 +140,12 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
 
             # Save stellar params and errs, to be used in derived calculations.
             # IMPORTANT: STANDARDIZE AFTER MERGING SYNTH AND EMP PARAMS. 10/25
-            Mstar  = props.loc[index, 'iso_mass']
-            uMstar = np.mean(np.absolute([props.loc[index, 'iso_mass_err1'],
-                                          props.loc[index, 'iso_mass_err2']]))
-            Rstar  = props.loc[index, 'iso_radius']
-            uRstar = np.mean(np.absolute([props.loc[index, 'iso_radius_err1'],
-                                          props.loc[index, 'iso_radius_err2']]))
-            Tstar  = props.loc[index, 'teff_emp']
-            uTstar = props.loc[index, 'teff_err_emp']
+            Mstar  = props.loc[index, 'mass_c']
+            uMstar = props.loc[index, 'mass_err_c']
+            Rstar  = props.loc[index, 'radius_c']
+            Rstar  = props.loc[index, 'radius_err_c']
+            Tstar  = props.loc[index, 'teff_c']
+            uTstar = props.loc[index, 'teff_err_c']
 
             props.loc[index, 'Mstar']  = Mstar
             props.loc[index, 'uMstar'] = uMstar
