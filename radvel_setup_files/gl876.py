@@ -14,7 +14,7 @@ vary_dvdt = False # include a trend
 """
 
 starname = 'GJ 876'
-nplanets = 3
+nplanets = 2
 fitting_basis = 'per tc secosw sesinw k'
 bjd0 = 0.
 planet_letters = {1: 'b', 2: 'c', 3: 'd', 4: 'e'}
@@ -32,11 +32,11 @@ anybasis_params['tc2'] = radvel.Parameter(value=2453028.66)
 anybasis_params['e2'] = radvel.Parameter(value=0.05)
 anybasis_params['w2'] = radvel.Parameter(value=-1.22)
 anybasis_params['k2'] = radvel.Parameter(value=88.340000)
-anybasis_params['per3'] = radvel.Parameter(value=1.937780)
-anybasis_params['tc3'] = radvel.Parameter(value=2453014.1)
-anybasis_params['e3'] = radvel.Parameter(value=0)
-anybasis_params['w3'] = radvel.Parameter(value=np.pi)
-anybasis_params['k3'] = radvel.Parameter(value=6.560000)
+#anybasis_params['per3'] = radvel.Parameter(value=1.937780)
+#anybasis_params['tc3'] = radvel.Parameter(value=2453014.1)
+#anybasis_params['e3'] = radvel.Parameter(value=0)
+#anybasis_params['w3'] = radvel.Parameter(value=np.pi)
+#anybasis_params['k3'] = radvel.Parameter(value=6.560000)
 # anybasis_params['per4'] = radvel.Parameter(value=124.156)
 # anybasis_params['tc4'] = radvel.Parameter(value=2453070.1)
 # anybasis_params['e4'] = radvel.Parameter(value=0)
@@ -81,10 +81,10 @@ mod.params['per2'].vary = True
 mod.params['tc2'].vary = True
 mod.params['secosw2'].vary = True
 mod.params['sesinw2'].vary = True
-mod.params['per3'].vary = True
-mod.params['tc3'].vary = True
-mod.params['secosw3'].vary = True
-mod.params['sesinw3'].vary = True
+#mod.params['per3'].vary = True
+#mod.params['tc3'].vary = True
+#mod.params['secosw3'].vary = True
+#mod.params['sesinw3'].vary = True
 # mod.params['per4'].vary = True
 # mod.params['tc4'].vary = True
 # mod.params['secosw4'].vary = True
