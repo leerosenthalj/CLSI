@@ -63,6 +63,8 @@ def make_planet_list(props_filename, save=True):
     es_med       = []
     es_minus     = []
     es_plus      = []
+    es_mode      = []
+    es_68        = []
     ws           = []
     ws_med       = []
     ws_minus     = []
@@ -123,6 +125,8 @@ def make_planet_list(props_filename, save=True):
                 es_med.append(props.loc[i, 'e{}_med'.format(j)])
                 es_minus.append(props.loc[i, 'e{}_minus'.format(j)])
                 es_plus.append(props.loc[i, 'e{}_plus'.format(j)])
+                es_mode.append(props.loc[i, 'e{}_mode'.format(j)])
+                es_68.append(props.loc[i, 'e{}_68'.format(j)])
 
                 insols.append(props.loc[i, 'insol{}'.format(j)])
                 insols_med.append(props.loc[i, 'insol{}_med'.format(j)])
@@ -160,7 +164,8 @@ def make_planet_list(props_filename, save=True):
                     'per_med':pers_med, 'per_minus':pers_minus, 'per_plus':pers_plus,
                     'k':ks, 'k_med':ks_med, 'k_minus':ks_minus, 'k_plus':ks_plus,
                     'e':es, 'e_med':es_med, 'e_minus':es_minus, 'e_plus':es_plus,
-                    'insol':insols, 'insol_med':insols_med, 'insols_minus':insols_minus,
+                    'e_mode':es_mode, 'e_68':es_68, 'insol':insols,
+                    'insol_med':insols_med, 'insols_minus':insols_minus,
                     'insols_plus':insols_plus, 'teq':teqs, 'teq_med':teqs_med,
                     'teq_minus':teqs_minus, 'teq_plus':teqs_plus,
                     'post_path': post_paths}
