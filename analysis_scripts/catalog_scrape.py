@@ -77,8 +77,9 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                 params[tkey] = post.params[tkey].value
                 if fancy:
                     if isinstance(chains, pd.DataFrame):
-                        echain = chains['secosw{}'.format(n)]**2 + \
-                                 chains['sesinw{}'.format(n)]**2
+                        #echain = chains['secosw{}'.format(n)]**2 + \
+                        #         chains['sesinw{}'.format(n)]**2
+                        echain = chains[ekey]
                         params[ekey+'_med']   = np.median(echain)
                         params[ekey+'_minus'] = np.percentile(echain, 15.9)
                         params[ekey+'_plus']  = np.percentile(echain, 84.1)

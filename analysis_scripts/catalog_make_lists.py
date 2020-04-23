@@ -162,6 +162,8 @@ def make_planet_list(props_filename, save=True):
                     'mass_plus':masses_plus, 'axis':axes, 'axis_med':axes_med,
                     'axis_minus':axes_minus, 'axis_plus':axes_plus, 'per':pers,
                     'per_med':pers_med, 'per_minus':pers_minus, 'per_plus':pers_plus,
+                    'tc':tcs, 'tc_med':tcs_med, 'tc_minus':tcs_minus, 'tc_plus':tcs_plus,
+                    'w':ws, 'w_med':ws_med, 'w_minus':ws_minus, 'w_plus':ws_plus,
                     'k':ks, 'k_med':ks_med, 'k_minus':ks_minus, 'k_plus':ks_plus,
                     'e':es, 'e_med':es_med, 'e_minus':es_minus, 'e_plus':es_plus,
                     'e_mode':es_mode, 'e_68':es_68, 'insol':insols,
