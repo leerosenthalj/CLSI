@@ -88,7 +88,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                         params[ekey+'_mode'] = bin_edges[np.argmax(hist)]
                         params[ekey+'_68'] = np.percentile(echain, 68.2)
                         std = 0.5*(params[ekey+'_plus'] - params[ekey+'_minus'])
-                        if params[ekey+'_mode'] > 2*std:
+                        if params[ekey+'_mode'] > std:
                             params[ekey+'_stat'] = 'e'
                         else:
                             params[ekey+'_stat'] = 'c'
