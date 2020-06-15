@@ -83,7 +83,7 @@ def scrape(starlist, star_db_name=None, filename='system_props.csv', fancy=True)
                         params[ekey+'_med']   = np.median(echain)
                         params[ekey+'_minus'] = np.percentile(echain, 15.9)
                         params[ekey+'_plus']  = np.percentile(echain, 84.1)
-                        hist, bin_edges       = np.histogram(echain, bins=200,
+                        hist, bin_edges       = np.histogram(echain, bins=100,
                                                              range=(0, 1))
                         params[ekey+'_mode'] = bin_edges[np.argmax(hist)]
                         params[ekey+'_68'] = np.percentile(echain, 68.2)
